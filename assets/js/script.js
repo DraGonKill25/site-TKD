@@ -1,4 +1,68 @@
 document.addEventListener("DOMContentLoaded", function() {
+    // Menu hamburger pour mobile
+    const menuToggle = document.querySelector(".menu-toggle");
+    const nav = document.querySelector(".header nav, #menu");
+    const header = document.querySelector(".header, #header");
+
+    if (menuToggle && nav) {
+        menuToggle.addEventListener("click", function(event) {
+            event.stopPropagation();
+            nav.classList.toggle("active");
+        });
+
+        // Fermer le menu quand on clique sur un lien
+        const navLinks = nav.querySelectorAll("a");
+        navLinks.forEach(link => {
+            link.addEventListener("click", function() {
+                nav.classList.remove("active");
+            });
+        });
+
+        // Fermer le menu quand on clique en dehors
+        document.addEventListener("click", function(event) {
+            if (header && !header.contains(event.target) && nav.classList.contains("active")) {
+                nav.classList.remove("active");
+            }
+        });
+    }
+
+    // Navbar rétractable sur mobile (cache/montre au scroll)
+    if (header) {
+        let lastScrollTop = 0;
+        let ticking = false;
+
+        function handleScroll() {
+            if (window.innerWidth > 768) return; // Seulement sur mobile
+            
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            
+            if (scrollTop > lastScrollTop && scrollTop > 100) {
+                // Scroll vers le bas - cacher la navbar
+                header.classList.add("header-hidden");
+            } else {
+                // Scroll vers le haut - montrer la navbar
+                header.classList.remove("header-hidden");
+            }
+            
+            lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+            ticking = false;
+        }
+
+        window.addEventListener("scroll", function() {
+            if (!ticking) {
+                window.requestAnimationFrame(handleScroll);
+                ticking = true;
+            }
+        }, { passive: true });
+
+        // Reset sur resize
+        window.addEventListener("resize", function() {
+            if (window.innerWidth > 768) {
+                header.classList.remove("header-hidden");
+            }
+        });
+    }
+
     // Animations GSAP uniquement si GSAP est disponible (page d'accueil)
     if (typeof gsap !== 'undefined') {
         gsap.from(".hero h1", { duration: 1, y: -50, opacity: 0, ease: "bounce" });
@@ -8,6 +72,7 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     const pdfViewer = document.getElementById("pdf-viewer");
+    const pdfContainer = document.querySelector(".pdf-container");
     const documentCards = document.querySelectorAll(".document-card");
 
     // Vérifier si pdfViewer existe avant d'ajouter les event listeners
@@ -21,6 +86,16 @@ document.addEventListener("DOMContentLoaded", function() {
                     // Modifier l'URL du PDF
                     pdfViewer.src = pdfUrl + "#toolbar=0";
                     pdfViewer.style.display = "block";
+                    
+                    // Scroll automatique vers le PDF sur mobile (maintenant en haut)
+                    if (window.innerWidth <= 768 && pdfContainer) {
+                        setTimeout(() => {
+                            window.scrollTo({ 
+                                top: 0,
+                                behavior: 'smooth'
+                            });
+                        }, 100);
+                    }
                 }
 
                 // Supprimer la classe active des autres documents

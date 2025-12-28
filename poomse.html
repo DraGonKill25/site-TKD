@@ -12,6 +12,7 @@
     <!-- Header -->
     <header class="header">
         <div class="logo">SP Training TaeKwonDo</div>
+        <button class="menu-toggle" aria-label="Menu">☰</button>
         <nav>
             <ul>
                 <li><a href="index.html">Accueil</a></li>
@@ -24,7 +25,7 @@
     </header>
 
     <!-- Contenu principal -->
-    <div id="main" class="container" style="margin-top: 80px;">
+    <div id="main" class="container">
         <section class="wrapper style1">
             <div class="inner">
                 <header class="section-title">
@@ -90,7 +91,7 @@
                     <!-- Zone vidéo YouTube -->
                     <div class="video-container" style="margin-top: 30px;">
                         <h3 style="margin-bottom: 15px;">Vidéo Explicative</h3>
-                        <iframe id="video-frame" width="100%" height="500" src="https://www.youtube.com/embed/j8ee61tXa2s" frameborder="0" allowfullscreen style="border-radius: 10px;"></iframe>
+                        <iframe id="video-frame" src="https://www.youtube.com/embed/j8ee61tXa2s" frameborder="0" allowfullscreen></iframe>
                     </div>
                 </div>
             </div>
@@ -106,6 +107,7 @@
         document.addEventListener("DOMContentLoaded", function() {
             const pdfViewer = document.getElementById("pdf-viewer");
             const videoFrame = document.getElementById("video-frame");
+            const pdfContainer = document.querySelector(".pdf-container");
             const documentCards = document.querySelectorAll(".document-card");
 
             documentCards.forEach(card => {
@@ -116,6 +118,16 @@
                     if (pdfUrl) {
                         pdfViewer.src = pdfUrl + "#toolbar=0";
                         pdfViewer.style.display = "block";
+                        
+                        // Scroll automatique vers le haut (PDF est maintenant en premier)
+                        if (window.innerWidth <= 768) {
+                            setTimeout(() => {
+                                window.scrollTo({ 
+                                    top: 0,
+                                    behavior: 'smooth'
+                                });
+                            }, 100);
+                        }
                     }
 
                     if (videoUrl) {

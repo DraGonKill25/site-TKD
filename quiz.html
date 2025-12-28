@@ -12,6 +12,7 @@
     <!-- Header -->
     <header class="header">
         <div class="logo">SP Training TaeKwonDo</div>
+        <button class="menu-toggle" aria-label="Menu">☰</button>
         <nav>
             <ul>
                 <li><a href="index.html">Accueil</a></li>
@@ -24,20 +25,63 @@
     </header>
 
     <!-- Contenu principal -->
-    <div id="main" class="container" style="margin-top: 80px; padding: 40px 20px;">
+    <div id="main" class="container" style="padding: 40px 20px;">
         <section class="quiz">
             <header class="section-title" style="text-align: center; margin-bottom: 30px;">
                 <h2>Quiz Interactif</h2>
                 <p>Testez vos connaissances du Taekwondo !</p>
             </header>
 
-            <!-- Écran de démarrage -->
-            <div id="start-screen" class="quiz-screen">
+            <!-- Écran de sélection de quiz -->
+            <div id="quiz-select-screen" class="quiz-screen">
                 <div class="quiz-card">
                     <div class="quiz-icon">❓</div>
-                    <h3>Prêt à tester vos connaissances ?</h3>
-                    <p>Ce quiz contient 10 questions sur le vocabulaire, les techniques et les poomse du Taekwondo.</p>
+                    <h3>Choisissez un Quiz</h3>
+                    <p>Sélectionnez un type de quiz pour tester vos connaissances du Taekwondo.</p>
+                    
+                    <div class="quiz-selection-grid">
+                        <button class="quiz-type-btn" data-quiz="all">
+                            <div class="quiz-type-icon">🎯</div>
+                            <h4>Quiz Général</h4>
+                            <p>Tous les thèmes</p>
+                        </button>
+                        <button class="quiz-type-btn" data-quiz="vocabulaire">
+                            <div class="quiz-type-icon">📚</div>
+                            <h4>Vocabulaire</h4>
+                            <p>Termes coréens</p>
+                        </button>
+                        <button class="quiz-type-btn" data-quiz="coups-pied">
+                            <div class="quiz-type-icon">🦵</div>
+                            <h4>Coups de Pied</h4>
+                            <p>Techniques de pied</p>
+                        </button>
+                        <button class="quiz-type-btn" data-quiz="attaques-bras">
+                            <div class="quiz-type-icon">🥊</div>
+                            <h4>Attaques Bras</h4>
+                            <p>Techniques de poing</p>
+                        </button>
+                        <button class="quiz-type-btn" data-quiz="positions">
+                            <div class="quiz-type-icon">🧘</div>
+                            <h4>Positions</h4>
+                            <p>Positions de base</p>
+                        </button>
+                        <button class="quiz-type-btn" data-quiz="poomse">
+                            <div class="quiz-type-icon">🥋</div>
+                            <h4>Poomse</h4>
+                            <p>Formes et enchaînements</p>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Écran de démarrage -->
+            <div id="start-screen" class="quiz-screen" style="display: none;">
+                <div class="quiz-card">
+                    <div class="quiz-icon">❓</div>
+                    <h3 id="start-title">Prêt à tester vos connaissances ?</h3>
+                    <p id="start-description">Ce quiz contient 10 questions sur le vocabulaire, les techniques et les poomse du Taekwondo.</p>
                     <button id="start-btn" class="quiz-btn primary">Commencer le Quiz</button>
+                    <button id="back-btn" class="quiz-btn" style="margin-top: 15px; background: #444;">Retour à la sélection</button>
                 </div>
             </div>
 
