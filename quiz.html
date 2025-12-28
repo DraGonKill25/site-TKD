@@ -1,0 +1,89 @@
+<!DOCTYPE HTML>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Quiz - SP Training TaeKwonDo</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <script src="assets/js/quiz.js" defer></script>
+</head>
+<body class="subpage">
+
+    <!-- Header -->
+    <header class="header">
+        <div class="logo">SP Training TaeKwonDo</div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="bases.html">Les Bases</a></li>
+                <li><a href="poomse.html">Poomse</a></li>
+                <li><a href="vocabulaire.html">Vocabulaire</a></li>
+                <li><a href="quiz.html">Quiz</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Contenu principal -->
+    <div id="main" class="container" style="margin-top: 80px; padding: 40px 20px;">
+        <section class="quiz">
+            <header class="section-title" style="text-align: center; margin-bottom: 30px;">
+                <h2>Quiz Interactif</h2>
+                <p>Testez vos connaissances du Taekwondo !</p>
+            </header>
+
+            <!-- Écran de démarrage -->
+            <div id="start-screen" class="quiz-screen">
+                <div class="quiz-card">
+                    <div class="quiz-icon">❓</div>
+                    <h3>Prêt à tester vos connaissances ?</h3>
+                    <p>Ce quiz contient 10 questions sur le vocabulaire, les techniques et les poomse du Taekwondo.</p>
+                    <button id="start-btn" class="quiz-btn primary">Commencer le Quiz</button>
+                </div>
+            </div>
+
+            <!-- Écran du quiz -->
+            <div id="quiz-screen" class="quiz-screen" style="display: none;">
+                <div class="quiz-card">
+                    <div class="quiz-header">
+                        <div id="progress" class="progress-text">Question 1 / 10</div>
+                        <div id="score" class="score-text">Score: 0 / 10</div>
+                    </div>
+                    
+                    <div id="question" class="question-text"></div>
+                    
+                    <div id="options" class="options-container"></div>
+                    
+                    <div id="feedback" class="feedback"></div>
+                    
+                    <button id="next-btn" class="quiz-btn" style="display: none; margin-top: 20px;">Question suivante</button>
+                </div>
+            </div>
+
+            <!-- Écran des résultats -->
+            <div id="results-screen" class="quiz-screen" style="display: none;">
+                <div class="quiz-card">
+                    <div class="results-header">
+                        <div class="results-icon">🏆</div>
+                        <h3>Résultats du Quiz</h3>
+                        <div class="results-score-container">
+                            <div id="results-score" class="results-score"></div>
+                            <div id="results-percentage" class="results-percentage"></div>
+                        </div>
+                        <div id="results-message" class="results-message"></div>
+                    </div>
+                    
+                    <div id="results-details" class="results-details"></div>
+                    
+                    <button id="restart-btn" class="quiz-btn primary" style="margin-top: 30px;">Recommencer</button>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 DraGonKill25 - Tous droits réservés.</p>
+    </footer>
+
+</body>
+</html>
