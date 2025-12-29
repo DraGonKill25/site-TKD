@@ -277,8 +277,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 options: ["Ahop", "Yeul", "Hana", "Doul"],
                 correct: 1,
                 explanation: "En coréen, 'dix' se dit 'Yeul' (comptage natif coréen)."
-            }
-        ],
+            },
             {
                 question: "Que signifie 'Alé Maki' (ou 'Arae Makki') en français ?",
                 options: ["Blocage en bas", "Blocage niveau moyen", "Blocage niveau tête", "Blocage latéral"],
@@ -1053,6 +1052,7 @@ document.addEventListener("DOMContentLoaded", function() {
     let selectedQuestions = [];
     let userAnswers = [];
     let currentQuizType = "all";
+    let selectedQuestionCount = 10; // Nombre de questions par défaut
 
     const questionElement = document.getElementById("question");
     const optionsContainer = document.getElementById("options");
@@ -1070,6 +1070,9 @@ document.addEventListener("DOMContentLoaded", function() {
     const startTitle = document.getElementById("start-title");
     const startDescription = document.getElementById("start-description");
     const quizTypeButtons = document.querySelectorAll(".quiz-type-btn");
+    const questionCountButtons = document.querySelectorAll(".question-count-btn");
+    const maxCountBtn = document.getElementById("max-count-btn");
+    const maxCountInfo = document.getElementById("max-count-info");
 
     // Fonction pour obtenir toutes les questions d'un type spécifique
     function getQuestionsByType(type) {
@@ -1085,10 +1088,10 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     // Fonction pour sélectionner des questions aléatoires
-    function selectRandomQuestions(type) {
+    function selectRandomQuestions(type, count) {
         const availableQuestions = getQuestionsByType(type);
         const shuffled = [...availableQuestions].sort(() => 0.5 - Math.random());
-        const questionCount = Math.min(10, availableQuestions.length);
+        const questionCount = (count === "max") ? availableQuestions.length : Math.min(count, availableQuestions.length);
         selectedQuestions = shuffled.slice(0, questionCount);
         userAnswers = [];
         currentQuestionIndex = 0;
@@ -1204,18 +1207,63 @@ document.addEventListener("DOMContentLoaded", function() {
         currentQuizType = type;
         
         const quizInfo = {
-            "all": { title: "Quiz Général", desc: "Ce quiz contient 10 questions mélangées sur tous les thèmes du Taekwondo." },
-            "vocabulaire": { title: "Quiz Vocabulaire", desc: "Ce quiz contient 10 questions sur le vocabulaire coréen du Taekwondo." },
-            "coups-pied": { title: "Quiz Coups de Pied", desc: "Ce quiz contient 10 questions sur les techniques de coups de pied." },
-            "attaques-bras": { title: "Quiz Attaques Bras", desc: "Ce quiz contient 10 questions sur les techniques d'attaque avec les bras." },
-            "positions": { title: "Quiz Positions", desc: "Ce quiz contient 10 questions sur les positions de base du Taekwondo." },
-            "poomse": { title: "Quiz Poomse", desc: "Ce quiz contient 10 questions sur les poomse (formes)." },
-            "general": { title: "Quiz Général Taekwondo", desc: "Ce quiz contient 10 questions sur l'histoire, les valeurs et les connaissances générales du Taekwondo." }
+            "all": { title: "Quiz Général", desc: "Choisissez le nombre de questions pour ce quiz mélangé sur tous les thèmes du Taekwondo." },
+            "vocabulaire": { title: "Quiz Vocabulaire", desc: "Choisissez le nombre de questions sur le vocabulaire coréen du Taekwondo." },
+            "coups-pied": { title: "Quiz Coups de Pied", desc: "Choisissez le nombre de questions sur les techniques de coups de pied." },
+            "attaques-bras": { title: "Quiz Attaques Bras", desc: "Choisissez le nombre de questions sur les techniques d'attaque avec les bras." },
+            "positions": { title: "Quiz Positions", desc: "Choisissez le nombre de questions sur les positions de base du Taekwondo." },
+            "poomse": { title: "Quiz Poomse", desc: "Choisissez le nombre de questions sur les poomse (formes)." },
+            "general": { title: "Quiz Général Taekwondo", desc: "Choisissez le nombre de questions sur l'histoire, les valeurs et les connaissances générales du Taekwondo." }
         };
 
         const info = quizInfo[type] || quizInfo["all"];
         startTitle.textContent = info.title;
         startDescription.textContent = info.desc;
+        
+        // Calculer le nombre maximum de questions disponibles
+        const availableQuestions = getQuestionsByType(type);
+        const maxQuestions = availableQuestions.length;
+        
+        // Mettre à jour le texte du bouton Max
+        maxCountBtn.textContent = `Max (${maxQuestions})`;
+        maxCountInfo.textContent = `${maxQuestions} questions disponibles pour ce quiz`;
+        
+        // Désactiver les boutons supérieurs au maximum
+        questionCountButtons.forEach(btn => {
+            const count = btn.getAttribute("data-count");
+            if (count !== "max") {
+                const countNum = parseInt(count);
+                if (countNum > maxQuestions) {
+                    btn.disabled = true;
+                    btn.style.opacity = "0.5";
+                    btn.style.cursor = "not-allowed";
+                } else {
+                    btn.disabled = false;
+                    btn.style.opacity = "1";
+                    btn.style.cursor = "pointer";
+                }
+            }
+        });
+        
+        // Réinitialiser la sélection à 10 (ou au maximum si moins de 10)
+        selectedQuestionCount = Math.min(10, maxQuestions);
+        questionCountButtons.forEach(btn => {
+            btn.classList.remove("selected");
+            const count = btn.getAttribute("data-count");
+            
+            // Sélectionner 10 par défaut si disponible, sinon le maximum
+            if (maxQuestions >= 10 && count === "10") {
+                btn.classList.add("selected");
+            } else if (maxQuestions < 10) {
+                if (count === "max") {
+                    btn.classList.add("selected");
+                    selectedQuestionCount = maxQuestions;
+                } else if (count !== "max" && parseInt(count) === maxQuestions) {
+                    btn.classList.add("selected");
+                    selectedQuestionCount = maxQuestions;
+                }
+            }
+        });
         
         quizSelectScreen.style.display = "none";
         startScreen.style.display = "block";
@@ -1223,7 +1271,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Fonction pour démarrer le quiz
     function startQuiz() {
-        selectRandomQuestions(currentQuizType);
+        selectRandomQuestions(currentQuizType, selectedQuestionCount);
         startScreen.style.display = "none";
         quizScreen.style.display = "block";
         displayQuestion();
@@ -1246,6 +1294,28 @@ document.addEventListener("DOMContentLoaded", function() {
         button.addEventListener("click", function() {
             const quizType = this.getAttribute("data-quiz");
             showStartScreen(quizType);
+        });
+    });
+
+    // Event listeners pour les boutons de sélection du nombre de questions
+    questionCountButtons.forEach(button => {
+        button.addEventListener("click", function() {
+            if (this.disabled) return;
+            
+            // Retirer la sélection de tous les boutons
+            questionCountButtons.forEach(btn => btn.classList.remove("selected"));
+            
+            // Ajouter la sélection au bouton cliqué
+            this.classList.add("selected");
+            
+            // Mettre à jour le nombre de questions sélectionné
+            const count = this.getAttribute("data-count");
+            if (count === "max") {
+                const availableQuestions = getQuestionsByType(currentQuizType);
+                selectedQuestionCount = availableQuestions.length;
+            } else {
+                selectedQuestionCount = parseInt(count);
+            }
         });
     });
 

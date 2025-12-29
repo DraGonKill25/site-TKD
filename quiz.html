@@ -80,6 +80,18 @@
                     <div class="quiz-icon">❓</div>
                     <h3 id="start-title">Prêt à tester vos connaissances ?</h3>
                     <p id="start-description">Ce quiz contient 10 questions sur le vocabulaire, les techniques et les poomse du Taekwondo.</p>
+                    
+                    <div id="question-count-selector" style="margin: 30px 0;">
+                        <h4 style="color: white; margin-bottom: 15px; text-align: center;">Nombre de questions :</h4>
+                        <div class="question-count-buttons" style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
+                            <button class="question-count-btn" data-count="5">5</button>
+                            <button class="question-count-btn" data-count="10">10</button>
+                            <button class="question-count-btn" data-count="20">20</button>
+                            <button class="question-count-btn" data-count="max" id="max-count-btn">Max</button>
+                        </div>
+                        <p id="max-count-info" style="text-align: center; color: #aaa; margin-top: 10px; font-size: 14px;"></p>
+                    </div>
+                    
                     <button id="start-btn" class="quiz-btn primary">Commencer le Quiz</button>
                     <button id="back-btn" class="quiz-btn" style="margin-top: 15px; background: #444;">Retour à la sélection</button>
                 </div>
