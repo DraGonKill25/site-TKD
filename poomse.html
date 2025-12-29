@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Poomse - SP Training TaeKwonDo</title>
     <link rel="stylesheet" href="assets/css/style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
     <script defer src="assets/js/script.js"></script>
 </head>
 <body class="subpage">
@@ -86,7 +87,17 @@
 
                 <!-- Zone d'affichage du PDF -->
                 <div class="pdf-container">
-                    <iframe id="pdf-viewer" src="pdf/poomse/Poomse1.pdf#toolbar=0" frameborder="0" style="display: block;"></iframe>
+                    <div id="pdf-viewer-container" style="display: block;">
+                        <canvas id="pdf-canvas"></canvas>
+                        <div id="pdf-controls" style="margin-top: 15px; text-align: center; display: flex; justify-content: center; gap: 10px; flex-wrap: wrap;">
+                            <button id="pdf-prev" class="pdf-btn">← Précédent</button>
+                            <span id="pdf-page-info" style="color: white; padding: 8px 15px; display: inline-block;">Page 1 / 1</span>
+                            <button id="pdf-next" class="pdf-btn">Suivant →</button>
+                            <button id="pdf-zoom-out" class="pdf-btn">🔍-</button>
+                            <button id="pdf-zoom-in" class="pdf-btn">🔍+</button>
+                        </div>
+                    </div>
+                    <iframe id="pdf-viewer-fallback" src="pdf/poomse/Poomse1.pdf#toolbar=0" frameborder="0" style="display: none;"></iframe>
                     
                     <!-- Zone vidéo YouTube -->
                     <div class="video-container" style="margin-top: 30px;">
@@ -105,35 +116,146 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            const pdfViewer = document.getElementById("pdf-viewer");
             const videoFrame = document.getElementById("video-frame");
             const pdfContainer = document.querySelector(".pdf-container");
             const documentCards = document.querySelectorAll(".document-card");
+            
+            // Configuration PDF.js
+            if (typeof pdfjsLib !== 'undefined') {
+                pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+            }
+
+            // Variables pour le visualiseur PDF
+            let pdfDoc = null;
+            let pageNum = 1;
+            let pageRendering = false;
+            let pageNumPending = null;
+            let scale = window.innerWidth <= 768 ? 1.0 : 1.5;
+            const canvas = document.getElementById('pdf-canvas');
 
             // Fonction pour convertir une URL YouTube en format embed
             function convertToEmbedUrl(url) {
                 if (!url) return url;
                 
-                // Si c'est déjà une URL embed, on la retourne telle quelle
                 if (url.includes('youtube.com/embed/')) {
                     return url;
                 }
                 
-                // Conversion depuis youtube.com/watch?v=VIDEO_ID
                 if (url.includes('youtube.com/watch?v=')) {
                     const videoId = url.split('v=')[1].split('&')[0];
                     return `https://www.youtube.com/embed/${videoId}`;
                 }
                 
-                // Conversion depuis youtu.be/VIDEO_ID
                 if (url.includes('youtu.be/')) {
                     const videoId = url.split('youtu.be/')[1].split('?')[0];
                     return `https://www.youtube.com/embed/${videoId}`;
                 }
                 
-                // Si le format n'est pas reconnu, retourner l'URL originale
                 return url;
             }
+
+            // Fonction pour rendre une page PDF
+            function renderPage(num) {
+                if (!canvas || !pdfDoc) return;
+                
+                pageRendering = true;
+                const ctx = canvas.getContext('2d');
+                
+                pdfDoc.getPage(num).then(function(page) {
+                    const viewport = page.getViewport({scale: scale});
+                    canvas.height = viewport.height;
+                    canvas.width = viewport.width;
+
+                    const renderContext = {
+                        canvasContext: ctx,
+                        viewport: viewport
+                    };
+                    const renderTask = page.render(renderContext);
+
+                    renderTask.promise.then(function() {
+                        pageRendering = false;
+                        if (pageNumPending !== null) {
+                            renderPage(pageNumPending);
+                            pageNumPending = null;
+                        }
+                        updatePageInfo();
+                    });
+                });
+            }
+
+            // Fonction pour mettre à jour les informations de page
+            function updatePageInfo() {
+                const pageInfo = document.getElementById('pdf-page-info');
+                if (pageInfo && pdfDoc) {
+                    pageInfo.textContent = `Page ${pageNum} / ${pdfDoc.numPages}`;
+                }
+                
+                // Afficher/masquer les boutons de navigation
+                const prevBtn = document.getElementById('pdf-prev');
+                const nextBtn = document.getElementById('pdf-next');
+                if (prevBtn) prevBtn.disabled = pageNum <= 1;
+                if (nextBtn) nextBtn.disabled = pageNum >= pdfDoc.numPages;
+            }
+
+            // Fonction pour charger un PDF
+            function loadPDF(url) {
+                const pdfViewerContainer = document.getElementById('pdf-viewer-container');
+                const pdfViewerFallback = document.getElementById('pdf-viewer-fallback');
+                
+                if (!pdfViewerContainer || !pdfViewerFallback) return;
+                
+                // Utiliser PDF.js si disponible, sinon fallback vers iframe
+                if (typeof pdfjsLib === 'undefined') {
+                    pdfViewerContainer.style.display = 'none';
+                    pdfViewerFallback.src = url + "#toolbar=0";
+                    pdfViewerFallback.style.display = 'block';
+                    return;
+                }
+                
+                // Utiliser PDF.js (fonctionne sur PC et mobile)
+                pdfViewerFallback.style.display = 'none';
+                pdfViewerContainer.style.display = 'block';
+                
+                pdfjsLib.getDocument(url).promise.then(function(pdf) {
+                    pdfDoc = pdf;
+                    pageNum = 1;
+                    renderPage(pageNum);
+                }).catch(function(error) {
+                    console.error('Erreur lors du chargement du PDF:', error);
+                    // Fallback vers iframe en cas d'erreur
+                    pdfViewerContainer.style.display = 'none';
+                    pdfViewerFallback.src = url + "#toolbar=0";
+                    pdfViewerFallback.style.display = 'block';
+                });
+            }
+
+            // Gestionnaires d'événements pour les contrôles PDF
+            document.getElementById('pdf-prev').addEventListener('click', function() {
+                if (pageNum <= 1) return;
+                pageNum--;
+                renderPage(pageNum);
+            });
+
+            document.getElementById('pdf-next').addEventListener('click', function() {
+                if (pageNum >= pdfDoc.numPages) return;
+                pageNum++;
+                renderPage(pageNum);
+            });
+
+            document.getElementById('pdf-zoom-out').addEventListener('click', function() {
+                if (scale <= 0.5) return;
+                scale -= 0.25;
+                renderPage(pageNum);
+            });
+
+            document.getElementById('pdf-zoom-in').addEventListener('click', function() {
+                if (scale >= 3) return;
+                scale += 0.25;
+                renderPage(pageNum);
+            });
+
+            // Charger le PDF initial
+            loadPDF('pdf/poomse/Poomse1.pdf');
 
             documentCards.forEach(card => {
                 card.addEventListener("click", function() {
@@ -141,10 +263,8 @@
                     let videoUrl = this.getAttribute("data-video");
 
                     if (pdfUrl) {
-                        pdfViewer.src = pdfUrl + "#toolbar=0";
-                        pdfViewer.style.display = "block";
+                        loadPDF(pdfUrl);
                         
-                        // Scroll automatique vers le haut (PDF est maintenant en premier)
                         if (window.innerWidth <= 768) {
                             setTimeout(() => {
                                 window.scrollTo({ 

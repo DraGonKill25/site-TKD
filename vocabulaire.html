@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Vocabulaire - SP Training TaeKwonDo</title>
     <link rel="stylesheet" href="assets/css/style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
     <script defer src="assets/js/script.js"></script>
 </head>
 <body class="subpage">
@@ -44,7 +45,17 @@
 
                 <!-- Zone d'affichage du PDF -->
                 <div class="pdf-container">
-                    <iframe id="pdf-viewer" src="pdf/Lexique_Officiel.pdf#toolbar=0" frameborder="0" style="display: block;"></iframe>
+                    <div id="pdf-viewer-container" style="display: block;">
+                        <canvas id="pdf-canvas"></canvas>
+                        <div id="pdf-controls" style="margin-top: 15px; text-align: center; display: flex; justify-content: center; gap: 10px; flex-wrap: wrap;">
+                            <button id="pdf-prev" class="pdf-btn">← Précédent</button>
+                            <span id="pdf-page-info" style="color: white; padding: 8px 15px; display: inline-block;">Page 1 / 1</span>
+                            <button id="pdf-next" class="pdf-btn">Suivant →</button>
+                            <button id="pdf-zoom-out" class="pdf-btn">🔍-</button>
+                            <button id="pdf-zoom-in" class="pdf-btn">🔍+</button>
+                        </div>
+                    </div>
+                    <iframe id="pdf-viewer-fallback" src="pdf/Lexique_Officiel.pdf#toolbar=0" frameborder="0" style="display: none;"></iframe>
                 </div>
             </div>
         </section>

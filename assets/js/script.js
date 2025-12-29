@@ -95,23 +95,147 @@ document.addEventListener("DOMContentLoaded", function() {
         }, (totalAnimationTime * 1000) + 500);
     }
 
-    const pdfViewer = document.getElementById("pdf-viewer");
+    const pdfViewerContainer = document.getElementById("pdf-viewer-container");
+    const pdfViewerFallback = document.getElementById("pdf-viewer-fallback");
     const pdfContainer = document.querySelector(".pdf-container");
     const documentCards = document.querySelectorAll(".document-card");
 
-    // Vérifier si pdfViewer existe avant d'ajouter les event listeners
-    if (pdfViewer && documentCards.length > 0) {
+    // Configuration PDF.js si disponible
+    if (typeof pdfjsLib !== 'undefined') {
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+    }
+
+    // Variables pour le visualiseur PDF
+    let pdfDoc = null;
+    let pageNum = 1;
+    let pageRendering = false;
+    let pageNumPending = null;
+    let scale = window.innerWidth <= 768 ? 1.0 : 1.5;
+    const canvas = document.getElementById('pdf-canvas');
+
+    // Fonction pour rendre une page PDF
+    function renderPage(num) {
+        if (!canvas || !pdfDoc) return;
+        
+        pageRendering = true;
+        const ctx = canvas.getContext('2d');
+        
+        pdfDoc.getPage(num).then(function(page) {
+            const viewport = page.getViewport({scale: scale});
+            canvas.height = viewport.height;
+            canvas.width = viewport.width;
+
+            const renderContext = {
+                canvasContext: ctx,
+                viewport: viewport
+            };
+            const renderTask = page.render(renderContext);
+
+            renderTask.promise.then(function() {
+                pageRendering = false;
+                if (pageNumPending !== null) {
+                    renderPage(pageNumPending);
+                    pageNumPending = null;
+                }
+                updatePageInfo();
+            });
+        });
+    }
+
+    // Fonction pour mettre à jour les informations de page
+    function updatePageInfo() {
+        const pageInfo = document.getElementById('pdf-page-info');
+        if (pageInfo && pdfDoc) {
+            pageInfo.textContent = `Page ${pageNum} / ${pdfDoc.numPages}`;
+        }
+        
+        const prevBtn = document.getElementById('pdf-prev');
+        const nextBtn = document.getElementById('pdf-next');
+        if (prevBtn) prevBtn.disabled = pageNum <= 1;
+        if (nextBtn) nextBtn.disabled = pageNum >= pdfDoc.numPages;
+    }
+
+    // Fonction pour charger un PDF
+    function loadPDF(url) {
+        if (!pdfViewerContainer || !pdfViewerFallback) return;
+        
+        // Utiliser PDF.js si disponible, sinon fallback vers iframe
+        if (typeof pdfjsLib === 'undefined') {
+            pdfViewerContainer.style.display = 'none';
+            pdfViewerFallback.src = url + "#toolbar=0";
+            pdfViewerFallback.style.display = 'block';
+            return;
+        }
+        
+        // Utiliser PDF.js (fonctionne sur PC et mobile)
+        pdfViewerFallback.style.display = 'none';
+        pdfViewerContainer.style.display = 'block';
+        
+        pdfjsLib.getDocument(url).promise.then(function(pdf) {
+            pdfDoc = pdf;
+            pageNum = 1;
+            renderPage(pageNum);
+        }).catch(function(error) {
+            console.error('Erreur lors du chargement du PDF:', error);
+            pdfViewerContainer.style.display = 'none';
+            pdfViewerFallback.src = url + "#toolbar=0";
+            pdfViewerFallback.style.display = 'block';
+        });
+    }
+
+    // Gestionnaires d'événements pour les contrôles PDF
+    const prevBtn = document.getElementById('pdf-prev');
+    const nextBtn = document.getElementById('pdf-next');
+    const zoomOutBtn = document.getElementById('pdf-zoom-out');
+    const zoomInBtn = document.getElementById('pdf-zoom-in');
+
+    if (prevBtn) {
+        prevBtn.addEventListener('click', function() {
+            if (pageNum <= 1 || !pdfDoc) return;
+            pageNum--;
+            renderPage(pageNum);
+        });
+    }
+
+    if (nextBtn) {
+        nextBtn.addEventListener('click', function() {
+            if (!pdfDoc || pageNum >= pdfDoc.numPages) return;
+            pageNum++;
+            renderPage(pageNum);
+        });
+    }
+
+    if (zoomOutBtn) {
+        zoomOutBtn.addEventListener('click', function() {
+            if (scale <= 0.5) return;
+            scale -= 0.25;
+            renderPage(pageNum);
+        });
+    }
+
+    if (zoomInBtn) {
+        zoomInBtn.addEventListener('click', function() {
+            if (scale >= 3) return;
+            scale += 0.25;
+            renderPage(pageNum);
+        });
+    }
+
+    // Vérifier si les éléments PDF existent avant d'ajouter les event listeners
+    if (pdfViewerContainer && documentCards.length > 0) {
+        // Charger le PDF initial si présent dans le DOM
+        const initialPdf = pdfViewerFallback ? pdfViewerFallback.getAttribute('src') : null;
+        if (initialPdf) {
+            loadPDF(initialPdf.replace('#toolbar=0', ''));
+        }
+
         documentCards.forEach(card => {
             card.addEventListener("click", function() {
-                // Récupérer le fichier PDF depuis l'attribut data-pdf
                 const pdfUrl = this.getAttribute("data-pdf");
 
                 if (pdfUrl) {
-                    // Modifier l'URL du PDF
-                    pdfViewer.src = pdfUrl + "#toolbar=0";
-                    pdfViewer.style.display = "block";
+                    loadPDF(pdfUrl);
                     
-                    // Scroll automatique vers le PDF sur mobile (maintenant en haut)
                     if (window.innerWidth <= 768 && pdfContainer) {
                         setTimeout(() => {
                             window.scrollTo({ 
@@ -122,10 +246,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     }
                 }
 
-                // Supprimer la classe active des autres documents
                 documentCards.forEach(c => c.classList.remove("active"));
-
-                // Ajouter la classe active à l'élément cliqué
                 this.classList.add("active");
             });
         });
