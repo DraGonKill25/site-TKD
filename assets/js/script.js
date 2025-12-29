@@ -68,7 +68,31 @@ document.addEventListener("DOMContentLoaded", function() {
         gsap.from(".hero h1", { duration: 1, y: -50, opacity: 0, ease: "bounce" });
         gsap.from(".hero p", { duration: 1.5, y: 50, opacity: 0, delay: 0.5 });
         gsap.from(".btn", { duration: 1, scale: 0, opacity: 0, delay: 1 });
-        gsap.from(".feature", { duration: 2, opacity: 0, y: 50, stagger: 0.3, delay: 1.5 });
+        // Animation des features avec garantie que l'opacité reste à 1
+        const features = document.querySelectorAll(".feature");
+        const totalAnimationTime = 1.5 + 2 + (features.length * 0.3); // delay + duration + stagger
+        
+        gsap.to(".feature", { 
+            opacity: 1, 
+            y: 0, 
+            duration: 2, 
+            stagger: 0.3, 
+            delay: 1.5,
+            startAt: { opacity: 0, y: 50 },
+            onComplete: function() {
+                // S'assurer que tous les éléments sont visibles après l'animation
+                features.forEach(feature => {
+                    feature.style.opacity = "1";
+                });
+            }
+        });
+        
+        // Backup: forcer l'opacité après l'animation complète au cas où
+        setTimeout(() => {
+            features.forEach(feature => {
+                feature.style.opacity = "1";
+            });
+        }, (totalAnimationTime * 1000) + 500);
     }
 
     const pdfViewer = document.getElementById("pdf-viewer");
