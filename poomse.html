@@ -53,31 +53,31 @@
                         <span class="btn">📖 Voir</span>
                     </div>
 
-                    <div class="document-card" data-pdf="pdf/poomse/Poomse4.pdf" data-video="https://youtu.be/6T6mw1WjC3k">
+                    <div class="document-card" data-pdf="pdf/poomse/Poomse4.pdf" data-video="https://www.youtube.com/embed/6T6mw1WjC3k">
                         <div class="document-icon">4️⃣</div>
                         <h3>Poomse 4</h3>
                         <span class="btn">📖 Voir</span>
                     </div>
 
-                    <div class="document-card" data-pdf="pdf/poomse/Poomse5.pdf" data-video="https://youtu.be/QQp60pTET14">
+                    <div class="document-card" data-pdf="pdf/poomse/Poomse5.pdf" data-video="https://www.youtube.com/embed/QQp60pTET14">
                         <div class="document-icon">5️⃣</div>
                         <h3>Poomse 5</h3>
                         <span class="btn">📖 Voir</span>
                     </div>
 
-                    <div class="document-card" data-pdf="pdf/poomse/Poomse6.pdf" data-video="https://youtu.be/otUbB-vgdNQ">
+                    <div class="document-card" data-pdf="pdf/poomse/Poomse6.pdf" data-video="https://www.youtube.com/embed/otUbB-vgdNQ">
                         <div class="document-icon">6️⃣</div>
                         <h3>Poomse 6</h3>
                         <span class="btn">📖 Voir</span>
                     </div>
 
-                    <div class="document-card" data-pdf="pdf/poomse/Poomse7.pdf" data-video="https://youtu.be/psqyXqlBhy4">
+                    <div class="document-card" data-pdf="pdf/poomse/Poomse7.pdf" data-video="https://www.youtube.com/embed/psqyXqlBhy4">
                         <div class="document-icon">7️⃣</div>
                         <h3>Poomse 7</h3>
                         <span class="btn">📖 Voir</span>
                     </div>
 
-                    <div class="document-card" data-pdf="pdf/poomse/Poomse8.pdf" data-video="https://youtu.be/Bw-5kZFtfos">
+                    <div class="document-card" data-pdf="pdf/poomse/Poomse8.pdf" data-video="https://www.youtube.com/embed/Bw-5kZFtfos">
                         <div class="document-icon">8️⃣</div>
                         <h3>Poomse 8</h3>
                         <span class="btn">📖 Voir</span>
@@ -110,10 +110,35 @@
             const pdfContainer = document.querySelector(".pdf-container");
             const documentCards = document.querySelectorAll(".document-card");
 
+            // Fonction pour convertir une URL YouTube en format embed
+            function convertToEmbedUrl(url) {
+                if (!url) return url;
+                
+                // Si c'est déjà une URL embed, on la retourne telle quelle
+                if (url.includes('youtube.com/embed/')) {
+                    return url;
+                }
+                
+                // Conversion depuis youtube.com/watch?v=VIDEO_ID
+                if (url.includes('youtube.com/watch?v=')) {
+                    const videoId = url.split('v=')[1].split('&')[0];
+                    return `https://www.youtube.com/embed/${videoId}`;
+                }
+                
+                // Conversion depuis youtu.be/VIDEO_ID
+                if (url.includes('youtu.be/')) {
+                    const videoId = url.split('youtu.be/')[1].split('?')[0];
+                    return `https://www.youtube.com/embed/${videoId}`;
+                }
+                
+                // Si le format n'est pas reconnu, retourner l'URL originale
+                return url;
+            }
+
             documentCards.forEach(card => {
                 card.addEventListener("click", function() {
                     const pdfUrl = this.getAttribute("data-pdf");
-                    const videoUrl = this.getAttribute("data-video");
+                    let videoUrl = this.getAttribute("data-video");
 
                     if (pdfUrl) {
                         pdfViewer.src = pdfUrl + "#toolbar=0";
@@ -131,6 +156,7 @@
                     }
 
                     if (videoUrl) {
+                        videoUrl = convertToEmbedUrl(videoUrl);
                         videoFrame.src = videoUrl;
                     }
 
