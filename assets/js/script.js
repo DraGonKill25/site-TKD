@@ -235,6 +235,23 @@ document.addEventListener("DOMContentLoaded", function() {
     const nextBtn = document.getElementById('pdf-next');
     const zoomOutBtn = document.getElementById('pdf-zoom-out');
     const zoomInBtn = document.getElementById('pdf-zoom-in');
+    const downloadBtn = document.getElementById('pdf-download');
+
+    if (downloadBtn && pdfViewerFallback) {
+        downloadBtn.addEventListener('click', function() {
+            const activeCard = document.querySelector('.document-card.active');
+            const pdfUrl = activeCard ? activeCard.getAttribute('data-pdf') : (pdfViewerFallback.getAttribute('src') || '').replace('#toolbar=0', '');
+            if (!pdfUrl) return;
+            const filename = (pdfUrl.split('/').pop() || 'document.pdf').split('?')[0];
+            const a = document.createElement('a');
+            a.href = pdfUrl;
+            a.download = filename;
+            a.rel = 'noopener';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        });
+    }
 
     if (prevBtn) {
         prevBtn.addEventListener('click', function() {
