@@ -110,6 +110,7 @@ document.addEventListener("DOMContentLoaded", function() {
     let pageNum = 1;
     let pageRendering = false;
     let pageNumPending = null;
+    let renderTask = null; // Référence à la tâche de rendu en cours
     let scale = window.innerWidth <= 768 ? 1.0 : 1.5;
     const canvas = document.getElementById('pdf-canvas');
 
@@ -117,10 +118,29 @@ document.addEventListener("DOMContentLoaded", function() {
     function renderPage(num) {
         if (!canvas || !pdfDoc) return;
         
+        // Annuler la tâche de rendu précédente si elle existe
+        if (renderTask) {
+            renderTask.cancel();
+            renderTask = null;
+        }
+        
+        // Si une opération de rendu est en cours, mettre en attente
+        if (pageRendering) {
+            pageNumPending = num;
+            return;
+        }
+        
         pageRendering = true;
         const ctx = canvas.getContext('2d');
         
         pdfDoc.getPage(num).then(function(page) {
+            // Vérifier à nouveau si une nouvelle opération n'a pas été demandée
+            if (pageNumPending !== null && pageNumPending !== num) {
+                pageRendering = false;
+                renderPage(pageNumPending);
+                return;
+            }
+            
             const viewport = page.getViewport({scale: scale});
             canvas.height = viewport.height;
             canvas.width = viewport.width;
@@ -129,16 +149,35 @@ document.addEventListener("DOMContentLoaded", function() {
                 canvasContext: ctx,
                 viewport: viewport
             };
-            const renderTask = page.render(renderContext);
+            renderTask = page.render(renderContext);
 
             renderTask.promise.then(function() {
                 pageRendering = false;
+                renderTask = null;
                 if (pageNumPending !== null) {
-                    renderPage(pageNumPending);
+                    const nextPage = pageNumPending;
                     pageNumPending = null;
+                    renderPage(nextPage);
+                } else {
+                    updatePageInfo();
                 }
-                updatePageInfo();
+            }).catch(function(error) {
+                // Ignorer les erreurs d'annulation
+                if (error.name !== 'RenderingCancelledException') {
+                    console.error('Erreur lors du rendu:', error);
+                }
+                pageRendering = false;
+                renderTask = null;
+                if (pageNumPending !== null) {
+                    const nextPage = pageNumPending;
+                    pageNumPending = null;
+                    renderPage(nextPage);
+                }
             });
+        }).catch(function(error) {
+            console.error('Erreur lors du chargement de la page:', error);
+            pageRendering = false;
+            renderTask = null;
         });
     }
 
@@ -158,6 +197,14 @@ document.addEventListener("DOMContentLoaded", function() {
     // Fonction pour charger un PDF
     function loadPDF(url) {
         if (!pdfViewerContainer || !pdfViewerFallback) return;
+        
+        // Annuler toute opération de rendu en cours
+        if (renderTask) {
+            renderTask.cancel();
+            renderTask = null;
+        }
+        pageRendering = false;
+        pageNumPending = null;
         
         // Utiliser PDF.js si disponible, sinon fallback vers iframe
         if (typeof pdfjsLib === 'undefined') {
