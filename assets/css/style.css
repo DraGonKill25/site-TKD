@@ -811,6 +811,61 @@ footer {
     text-align: center;
 }
 
+/* Bloc de question mis en valeur (ludique et lisible) */
+.question-block {
+    background: linear-gradient(135deg, #2a2a2a 0%, #1f1f1f 100%);
+    border-radius: 16px;
+    padding: 24px 28px;
+    margin-bottom: 28px;
+    border-left: 5px solid #4a7c2a;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    position: relative;
+}
+
+.question-block::before {
+    content: "❓";
+    position: absolute;
+    top: 20px;
+    left: 24px;
+    font-size: 28px;
+    opacity: 0.6;
+}
+
+.question-text {
+    padding-left: 44px;
+    text-align: left;
+}
+
+.question-prompt {
+    display: block;
+    color: #e8e8e8;
+    font-size: 1.15rem;
+    font-weight: 600;
+    line-height: 1.5;
+    margin-bottom: 16px;
+}
+
+.question-term {
+    display: block;
+    background: rgba(74, 124, 42, 0.15);
+    color: #b8e086;
+    font-family: inherit;
+    font-size: 1.05rem;
+    font-weight: 500;
+    line-height: 1.6;
+    padding: 16px 20px;
+    border-radius: 12px;
+    border: 1px solid rgba(74, 124, 42, 0.4);
+    white-space: pre-line;
+    word-break: break-word;
+}
+
+/* Quand la question n'a pas de partie "term" (pas de \n\n) */
+.question-block .question-text:not(:has(.question-prompt)) {
+    padding-left: 0;
+    text-align: center;
+}
+
 .options-container {
     display: flex;
     flex-direction: column;
@@ -1114,6 +1169,32 @@ footer {
         margin-bottom: 20px;
     }
 
+    .question-block {
+        padding: 18px 20px;
+        margin-bottom: 22px;
+        border-radius: 12px;
+    }
+
+    .question-block::before {
+        font-size: 22px;
+        top: 16px;
+        left: 18px;
+    }
+
+    .question-text {
+        padding-left: 38px;
+    }
+
+    .question-prompt {
+        font-size: 1rem;
+        margin-bottom: 12px;
+    }
+
+    .question-term {
+        font-size: 0.95rem;
+        padding: 12px 14px;
+    }
+
     .option-btn {
         font-size: 15px;
         padding: 14px 18px;
@@ -1187,6 +1268,31 @@ footer {
     .question-text {
         font-size: 16px;
         margin-bottom: 18px;
+    }
+
+    .question-block {
+        padding: 14px 16px;
+        margin-bottom: 18px;
+    }
+
+    .question-block::before {
+        font-size: 20px;
+        top: 14px;
+        left: 14px;
+    }
+
+    .question-text {
+        padding-left: 34px;
+    }
+
+    .question-prompt {
+        font-size: 0.95rem;
+        margin-bottom: 10px;
+    }
+
+    .question-term {
+        font-size: 0.9rem;
+        padding: 10px 12px;
     }
 
     .option-btn {

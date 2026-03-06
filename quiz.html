@@ -70,7 +70,42 @@
                             <h4>Poomse</h4>
                             <p>Formes et enchaînements</p>
                         </button>
+                        <div class="quiz-selection-grid" style="grid-column: 1 / -1;">
+                            <p style="grid-column: 1 / -1; color: #fff; font-weight: bold; margin: 10px 0 5px 0;">DAN 2026</p>
+                            <button class="quiz-type-btn" data-quiz="kibon-dan2026">
+                                <div class="quiz-type-icon">📋</div>
+                                <h4>Kibon</h4>
+                                <p>Enchaînements DAN 2026</p>
+                            </button>
+                        </div>
                     </div>
+                </div>
+            </div>
+
+            <!-- Écran de sélection Kibon DAN 2026 (3 catégories) -->
+            <div id="kibon-category-screen" class="quiz-screen" style="display: none;">
+                <div class="quiz-card">
+                    <div class="quiz-icon">📋</div>
+                    <h3>Kibon – DAN 2026</h3>
+                    <p>Choisissez une catégorie d'enchaînements.</p>
+                    <div class="quiz-selection-grid">
+                        <button class="quiz-type-btn kibon-category-btn" data-quiz="kibon-membres-superieurs">
+                            <div class="quiz-type-icon">🥊</div>
+                            <h4>Membres supérieurs</h4>
+                            <p>8 enchaînements</p>
+                        </button>
+                        <button class="quiz-type-btn kibon-category-btn" data-quiz="kibon-membres-inferieurs">
+                            <div class="quiz-type-icon">🦵</div>
+                            <h4>Membres inférieurs</h4>
+                            <p>8 enchaînements</p>
+                        </button>
+                        <button class="quiz-type-btn kibon-category-btn" data-quiz="kibon-membres-mixte">
+                            <div class="quiz-type-icon">💪</div>
+                            <h4>Membres supérieurs + inférieurs</h4>
+                            <p>8 enchaînements</p>
+                        </button>
+                    </div>
+                    <button id="kibon-back-btn" class="quiz-btn" style="margin-top: 20px; background: #444;">Retour à la sélection</button>
                 </div>
             </div>
 
@@ -105,7 +140,9 @@
                         <div id="score" class="score-text">Score: 0 / 10</div>
                     </div>
                     
-                    <div id="question" class="question-text"></div>
+                    <div class="question-block">
+                        <div id="question" class="question-text"></div>
+                    </div>
                     
                     <div id="options" class="options-container"></div>
                     

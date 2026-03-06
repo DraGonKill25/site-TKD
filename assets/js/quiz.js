@@ -1044,6 +1044,156 @@ document.addEventListener("DOMContentLoaded", function() {
                 correct: 0,
                 explanation: "Plusieurs Français(es) ont été médaillés olympiques : Gwladys Epanqgue, Pascal Gentil, Anne-Caroline Graffe, Marlène Harnois, Althéa Laurin, Haby Niaré, Myriam Baverel."
             }
+        ],
+        "kibon-membres-superieurs": [
+            {
+                question: "Que signifie en français l'enchaînement suivant ?\n\nDWITT KOUBI SEUGUI HAN SONNAL MOMTONG BAKKAT MAKI AP KOUBI SEUGUI JEBIPOUM MOK TCHIGUI",
+                options: ["Position du cavalier, blocage tranchant main plexus, frappe revers du poing niveau tête, petite position", "Position en L, blocage tranchant main plexus extérieur, grande position, coup tranchant main à la gorge", "Grande position, blocage niveau tête, petite position, coup de poing direct niveau plexus", "Petite position, double blocage plexus, position en L, frappe circulaire du coude niveau tête"],
+                correct: 1,
+                explanation: "Dwitt Koubi Seugui = position en L ; Han Sonnal Momtong Bakkat Maki = blocage tranchant main niveau plexus extérieur ; Ap Koubi Seugui = grande position ; Jebipoum Mok Tchigui = coup tranchant main à la gorge."
+            },
+            {
+                question: "Que signifie en français l'enchaînement suivant ?\n\nAP KOUBI SEUGUI HAN SONNAL EULGOUL BITEURO MAKI EULGOUL BANDE JILEUGUI",
+                options: ["Grande position, blocage tranchant main niveau visage, coup de poing revers niveau tête", "Position en L, blocage tranchant main niveau plexus, grande position, coup de poing direct plexus", "Petite position, blocage en bas avec soutien, position du cavalier, frappe revers du poing", "Position du cavalier, blocage niveau tête extérieur, petite position, frappe circulaire du coude"],
+                correct: 0,
+                explanation: "Ap Koubi Seugui = grande position ; Han Sonnal Eulgoul Biteuro Maki = blocage tranchant main niveau visage ; Eulgoul Bande Jileugui = coup de poing revers niveau tête."
+            },
+            {
+                question: "Que signifie en français l'enchaînement suivant ?\n\nJOUTCHOUM SEUGUI HAN SONNAL MOMTONG YOP MAKI MOMTONG YOP JILEUGUI",
+                options: ["Grande position, blocage en bas, coup de poing direct niveau plexus, position en L", "Position en L, blocage niveau tête, coup de pied avant, frappe coude", "Position du cavalier, blocage tranchant main niveau plexus latéral, coup de poing latéral niveau plexus", "Petite position, double blocage niveau plexus, frappe revers du poing niveau tête"],
+                correct: 2,
+                explanation: "Joutchoum Seugui = position du cavalier ; Han Sonnal Momtong Yop Maki = blocage tranchant main niveau plexus latéral ; Momtong Yop Jileugui = coup de poing latéral niveau plexus."
+            },
+            {
+                question: "Que signifie en français l'enchaînement suivant ?\n\nAP KOUBI SEUGUI JEBIPOUM MOK TCHIGUI DEUNG JOUMOK EULGOUL AP TCHIGUI",
+                options: ["Grande position, coup tranchant main à la gorge, frappe revers du poing niveau tête", "Position en L, blocage plexus extérieur, grande position, coup de pied latéral", "Position du cavalier, blocage en bas, frappe circulaire du coude, petite position", "Petite position, blocage niveau tête, double coup de poing niveau plexus"],
+                correct: 0,
+                explanation: "Ap Koubi Seugui = grande position ; Jebipoum Mok Tchigui = coup tranchant main à la gorge ; Deung Joumok Eulgoul Ap Tchigui = frappe revers du poing niveau tête."
+            },
+            {
+                question: "Que signifie en français l'enchaînement suivant ?\n\nDWITT KOUBI SEUGUI KEUDEURO MOMTONG BAKKAT MAKI AP KOUBI SEUGUI PALKOUP DOLYEU TCHIGUI",
+                options: ["Grande position, blocage niveau tête, petite position, coup de poing direct niveau plexus", "Position en L, blocage niveau plexus extérieur avec soutien, grande position, frappe circulaire du coude", "Position du cavalier, double blocage plexus, position en L, coup tranchant main à la gorge", "Petite position, blocage en bas avec soutien, grande position, frappe revers du poing"],
+                correct: 1,
+                explanation: "Dwitt Koubi Seugui = position en L ; Keudeuro Momtong Bakkat Maki = blocage niveau plexus extérieur avec soutien ; Ap Koubi Seugui = grande position ; Palkoup Dolyeu Tchigui = frappe circulaire du coude."
+            },
+            {
+                question: "Que signifie en français l'enchaînement suivant ?\n\nAP KOUBI SEUGUI MOMTONG HETCHEU MAKI DWITT KOUBI SEUGUI DOU JOUMOK JETCHEU JILEUGUI",
+                options: ["Position en L, blocage niveau tête, coup de pied avant, grande position", "Position du cavalier, blocage en bas, frappe revers du poing, petite position", "Grande position, double blocage niveau plexus, position en L, double coup de poing simultané", "Petite position, blocage tranchant main visage, coup de poing direct niveau plexus, position en L"],
+                correct: 2,
+                explanation: "Ap Koubi Seugui = grande position ; Momtong Hetcheu Maki = double blocage niveau plexus ; Dwitt Koubi Seugui = position en L ; Dou Joumok Jetcheu Jileugui = double coup de poing simultané."
+            },
+            {
+                question: "Que signifie en français l'enchaînement suivant ?\n\nDWITT KOUBI SEUGUI SONNAL ARE MAKI BEUM SEUGUI BATANG SON MOMTONG MAKI",
+                options: ["Grande position, blocage niveau tête, coup de poing direct, petite position", "Position du cavalier, double blocage en bas, coup de pied latéral, position en L", "Position en L, blocage tranchant main en bas, position Bum, blocage paume niveau plexus", "Petite position, blocage plexus extérieur, position en L, frappe circulaire du coude"],
+                correct: 2,
+                explanation: "Dwitt Koubi Seugui = position en L ; Sonnal Are Maki = blocage tranchant main en bas ; Beum Seugui = position Bum (tigre) ; Batang Son Momtong Maki = blocage paume niveau plexus."
+            },
+            {
+                question: "Que signifie en français l'enchaînement suivant ?\n\nDWITT KOUBI SEUGUI MOMTONG BAKKAT MAKI | AP KOUBI SEUGUI ME JOUMOK NERYO TCHIGUI",
+                options: ["Position en L, blocage niveau plexus extérieur, grande position, frappe poing fermé descendant", "Grande position, blocage en bas avec soutien, coup de pied avant, petite position", "Position du cavalier, blocage niveau tête, coup de poing direct niveau plexus, position en L", "Petite position, blocage tranchant visage, frappe circulaire du coude, grande position"],
+                correct: 0,
+                explanation: "Dwitt Koubi Seugui = position en L ; Momtong Bakkat Maki = blocage niveau plexus extérieur ; Ap Koubi Seugui = grande position ; Me Joumok Neryo Tchigui = frappe poing fermé descendant."
+            }
+        ],
+        "kibon-membres-inferieurs": [
+            {
+                question: "Que signifie en français l'enchaînement suivant ?\n\nNELYEU TCHAGUI | BANDAL TCHAGUI | DWITT TCHAGUI",
+                options: ["Coup de pied latéral, coup de pied poussé de face, coup de pied circulaire sauté", "Coup de pied marteau (descendant), coup de pied en revers (demi-lune), coup de pied arrière", "Coup de pied avant, coup de pied circulaire, double coup de pied avant", "Coup de pied en revers, coup de pied marteau, coup de pied pointe du pied"],
+                correct: 1,
+                explanation: "Nelyeu Tchagui = coup de pied marteau (descendant) ; Bandal Tchagui = coup de pied en revers (demi-lune) ; Dwitt Tchagui = coup de pied arrière."
+            },
+            {
+                question: "Que signifie en français l'enchaînement suivant ?\n\nYOP TCHAGUI | AP BAL FOURYEU TCHAGUI",
+                options: ["Coup de pied latéral, coup de pied poussé de face (plante du pied)", "Coup de pied avant et coup de pied arrière enchaînés", "Coup de pied marteau et coup de pied en revers (demi-lune)", "Coup de pied circulaire sauté et coup de pied en revers"],
+                correct: 0,
+                explanation: "Yop Tchagui = coup de pied latéral ; Ap Bal Fouryeu Tchagui = coup de pied poussé de face avec la plante du pied."
+            },
+            {
+                question: "Que signifie en français l'enchaînement suivant ?\n\nTUYEU DOLYEU TCHAGUI (sur raquette)",
+                options: ["Coup de pied avant sauté, coup de pied latéral sur raquette", "Double coup de pied avant enchaînés sur raquette", "Coup de pied circulaire sauté (sur raquette)", "Coup de pied en revers et coup de pied marteau sur raquette"],
+                correct: 2,
+                explanation: "Tuyeu Dolyeu Tchagui = coup de pied circulaire sauté ; sur raquette = exercice sur support."
+            },
+            {
+                question: "Que signifie en français l'enchaînement suivant ?\n\nYOP DOLYEU TCHAGUI",
+                options: ["Coup de pied latéral circulaire", "Coup de pied marteau et coup de pied en revers (demi-lune)", "Coup de pied poussé et coup de pied sauté de face", "Coup de pied avant et coup de pied arrière"],
+                correct: 0,
+                explanation: "Yop Dolyeu Tchagui = coup de pied latéral circulaire (Yop = latéral, Dollyo = circulaire)."
+            },
+            {
+                question: "Que signifie en français l'enchaînement suivant ?\n\nSOKKOT TCHAGUI",
+                options: ["Coup de pied marteau (descendant), coup de pied en revers", "Coup de pied latéral, coup de pied poussé de face", "Coup de pied pointe du pied", "Coup de pied circulaire sauté, coup de pied avant"],
+                correct: 2,
+                explanation: "Sokkot Tchagui = coup de pied avec la pointe du pied."
+            },
+            {
+                question: "Que signifie en français l'enchaînement suivant ?\n\nAP BAL TUYEU AP TCHAGUI (sur raquette)",
+                options: ["Coup de pied circulaire sauté, coup de pied latéral sur raquette", "Double coup de pied avant, coup de pied en revers sur raquette", "Coup de pied avant sauté avec la plante du pied (sur raquette)", "Coup de pied marteau, coup de pied poussé sur raquette"],
+                correct: 2,
+                explanation: "Ap Bal Tuyeu Ap Tchagui = coup de pied avant sauté avec la plante du pied ; sur raquette = exercice sur support."
+            },
+            {
+                question: "Que signifie en français l'enchaînement suivant ?\n\nDOU BAL DANG SANG AP TCHAGUI",
+                options: ["Double coup de pied avant enchaînés sans poser le pied", "Coup de pied latéral et coup de pied circulaire enchaînés", "Coup de pied marteau et coup de pied en revers enchaînés", "Coup de pied sauté et coup de pied poussé de face"],
+                correct: 0,
+                explanation: "Dou Bal Dang Sang Ap Tchagui = double coup de pied avant enchaînés sans poser le pied entre les deux."
+            },
+            {
+                question: "Que signifie en français l'enchaînement suivant ?\n\nBANDAL TCHAGUI | MOM DOLYEU FOULYEU TCHAGUI",
+                options: ["Coup de pied avant, coup de pied arrière, coup de pied latéral", "Coup de pied latéral, coup de pied marteau, coup de pied circulaire", "Coup de pied en revers (demi-lune), coup de pied fouetté circulaire avec rotation du corps", "Double coup de pied avant, coup de pied poussé de face"],
+                correct: 2,
+                explanation: "Bandal Tchagui = coup de pied en revers (demi-lune) ; Mom Dolyeu Fulyeu Tchagui = coup de pied fouetté circulaire avec rotation du corps."
+            }
+        ],
+        "kibon-membres-mixte": [
+            {
+                question: "Que signifie en français l'enchaînement suivant ?\n\nAP SEUGUI HAN SONNAL JEBIPOUM MOK TCHIGUI | AP TCHAGUI | AP KOUBI SEUGUI PALKOUP DOLYEU TCHIGUI",
+                options: ["Position en L, blocage plexus, coup de pied latéral, coup de poing direct niveau plexus", "Petite position, coup tranchant main à la gorge, coup de pied avant, grande position, frappe circulaire du coude", "Position du cavalier, blocage en bas, coup de pied circulaire, frappe revers du poing niveau tête", "Grande position, blocage tête, coup de pied marteau, double coup de poing niveau plexus"],
+                correct: 1,
+                explanation: "Ap Seugui = petite position ; Han Sonnal Jebipoum Mok Tchigui = coup tranchant main à la gorge ; Ap Tchagui = coup de pied avant ; Ap Koubi Seugui Palkoup Dolyeu Tchigui = grande position, frappe circulaire du coude."
+            },
+            {
+                question: "Que signifie en français l'enchaînement suivant ?\n\nAP SEUGUI DEUNG JOUMOK EULGOUL BAKKAT TCHIGUI | AP TCHAGUI | AP KOUBI SEUGUI MOMTONG BARO JILEUGUI",
+                options: ["Petite position, frappe revers du poing niveau tête, coup de pied avant, grande position, coup de poing direct niveau plexus (même côté)", "Position en L, blocage en bas, coup de pied latéral, coup de poing revers niveau tête", "Position du cavalier, blocage niveau tête, coup de pied circulaire, frappe coude niveau plexus", "Grande position, double blocage plexus, coup de pied marteau, coup tranchant main à la gorge"],
+                correct: 0,
+                explanation: "Ap Seugui = petite position ; Deung Joumok Eulgoul Bakkat Tchigui = frappe revers du poing niveau tête ; Ap Tchagui = coup de pied avant ; Ap Koubi Seugui Momtong Baro Jileugui = grande position, coup de poing direct niveau plexus."
+            },
+            {
+                question: "Que signifie en français l'enchaînement suivant ?\n\nDWITT KOUBI SEUGUI HAN SONNAL MOMTONG BAKKAT MAKI | YOP TCHAGUI | AP KOUBI SEUGUI PALKOUP MOMTONG PYOJOK TCHIGUI",
+                options: ["Petite position, blocage en bas, coup de pied avant, coup de poing direct niveau plexus", "Position du cavalier, blocage niveau tête, coup de pied circulaire, coup tranchant main à la gorge", "Position en L, blocage tranchant main plexus extérieur, coup de pied latéral, grande position, frappe coude dans la paume niveau plexus", "Grande position, double blocage, coup de pied marteau, frappe revers du poing niveau tête"],
+                correct: 2,
+                explanation: "Dwitt Koubi Seugui = position en L ; Han Sonnal Momtong Bakkat Maki = blocage tranchant main plexus extérieur ; Yop Tchagui = coup de pied latéral ; Ap Koubi Seugui Palkoup Momtong Pyojok Tchigui = grande position, frappe coude dans la paume niveau plexus."
+            },
+            {
+                question: "Que signifie en français l'enchaînement suivant ?\n\nDWITT KOUBI SEUGUI SONNAL MOMTONG MAKI | DOLYEU TCHAGUI | AP KOUBI SEUGUI EULGOUL BAKKAT MAKI MOMTONG BARO JILEUGUI",
+                options: ["Petite position, blocage en bas, coup de pied avant, frappe coude niveau plexus", "Position du cavalier, blocage tête, coup de pied latéral, coup tranchant main à la gorge", "Position en L, blocage tranchant main niveau plexus, coup de pied circulaire, grande position, blocage niveau tête et coup de poing direct plexus", "Grande position, double blocage, coup de pied marteau, double coup de poing niveau plexus"],
+                correct: 2,
+                explanation: "Dwitt Koubi Seugui = position en L ; Sonnal Momtong Maki = blocage tranchant main niveau plexus ; Dolyeu Tchagui = coup de pied circulaire ; Ap Koubi Seugui Eulgoul Bakkat Maki Momtong Baro Jileugui = grande position, blocage niveau tête + coup de poing direct plexus."
+            },
+            {
+                question: "Que signifie en français l'enchaînement suivant ?\n\nAP KOUBI SEUGUI HAN SONNAL EULGOUL BITEURO MAKI | DOLYEU TCHAGUI | MOMTONG BARO JILEUGUI",
+                options: ["Position en L, blocage plexus, coup de pied avant, frappe revers du poing niveau tête", "Position du cavalier, blocage en bas, coup de pied latéral, coup tranchant main à la gorge", "Grande position, blocage tranchant main niveau visage, coup de pied circulaire, coup de poing direct niveau plexus", "Petite position, double blocage plexus, coup de pied marteau, frappe coude niveau tête"],
+                correct: 2,
+                explanation: "Ap Koubi Seugui = grande position ; Han Sonnal Eulgoul Biteuro Maki = blocage tranchant main niveau visage ; Dolyeu Tchagui = coup de pied circulaire ; Momtong Baro Jileugui = coup de poing direct niveau plexus."
+            },
+            {
+                question: "Que signifie en français l'enchaînement suivant ?\n\nAP KOUBI SEUGUI OWE SAN TEUL MAKI | AP BAL YOP TCHAGUI | AP KOUBI SEUGUI JEBIPOUM MOK TCHIGUI",
+                options: ["Position en L, blocage en bas, coup de pied avant, coup de poing direct niveau plexus", "Position du cavalier, blocage niveau tête, coup de pied circulaire, frappe coude dans la paume", "Grande position, blocage double à deux niveaux, coup de pied latéral avec plante du pied, grande position, coup tranchant main à la gorge", "Petite position, blocage plexus, coup de pied marteau, double coup de poing niveau plexus"],
+                correct: 2,
+                explanation: "Ap Koubi Seugui = grande position ; Owe San Teul Maki = blocage double à deux niveaux ; Ap Bal Yop Tchagui = coup de pied latéral avec la plante du pied ; Ap Koubi Seugui Jebipoum Mok Tchigui = grande position, coup tranchant main à la gorge."
+            },
+            {
+                question: "Que signifie en français l'enchaînement suivant ?\n\nBEUM SEUGUI SONNAL MOMTONG MAKI | AP BAL AP TCHAGUI | AP KOUBI SEUGUI MOMTONG BARO JILEUGUI",
+                options: ["Petite position, blocage en bas, coup de pied latéral, frappe revers du poing niveau tête", "Position en L, blocage niveau tête, coup de pied circulaire, coup tranchant main à la gorge", "Position Bum (tigre), blocage tranchant main niveau plexus, coup de pied avant avec plante du pied, grande position, coup de poing direct niveau plexus", "Position du cavalier, double blocage plexus, coup de pied marteau, frappe coude niveau plexus"],
+                correct: 2,
+                explanation: "Beum Seugui = position Bum (tigre) ; Sonnal Momtong Maki = blocage tranchant main niveau plexus ; Ap Bal Ap Tchagui = coup de pied avant avec plante du pied ; Ap Koubi Seugui Momtong Baro Jileugui = grande position, coup de poing direct niveau plexus."
+            },
+            {
+                question: "Que signifie en français l'enchaînement suivant ?\n\nDWITT KOUBI SEUGUI KEUDEURO ARE MAKI | AP TCHAGUI | AP KOUBI SEUGUI MOMTONG DOUBONN JILEUGUI",
+                options: ["Petite position, blocage niveau tête, coup de pied latéral, coup tranchant main à la gorge", "Position du cavalier, blocage plexus, coup de pied circulaire, frappe coude niveau plexus", "Position en L, blocage en bas avec soutien, coup de pied avant, grande position, double coup de poing niveau plexus", "Grande position, double blocage niveau plexus, coup de pied marteau, coup de poing direct niveau tête"],
+                correct: 2,
+                explanation: "Dwitt Koubi Seugui = position en L ; Keudeuro Are Maki = blocage en bas avec soutien ; Ap Tchagui = coup de pied avant ; Ap Koubi Seugui Momtong Doubonn Jileugui = grande position, double coup de poing niveau plexus."
+            }
         ]
     };
 
@@ -1073,14 +1223,24 @@ document.addEventListener("DOMContentLoaded", function() {
     const questionCountButtons = document.querySelectorAll(".question-count-btn");
     const maxCountBtn = document.getElementById("max-count-btn");
     const maxCountInfo = document.getElementById("max-count-info");
+    const kibonCategoryScreen = document.getElementById("kibon-category-screen");
+    const kibonBackBtn = document.getElementById("kibon-back-btn");
+
+    function escapeHtml(text) {
+        const div = document.createElement("div");
+        div.textContent = text;
+        return div.innerHTML;
+    }
 
     // Fonction pour obtenir toutes les questions d'un type spécifique
     function getQuestionsByType(type) {
         if (type === "all") {
-            // Mélanger toutes les questions de toutes les catégories
+            // Mélanger toutes les questions (sauf les catégories Kibon DAN 2026)
             const all = [];
-            Object.values(allQuestions).forEach(category => {
-                all.push(...category);
+            Object.keys(allQuestions).forEach(key => {
+                if (key !== "kibon-membres-superieurs" && key !== "kibon-membres-inferieurs" && key !== "kibon-membres-mixte") {
+                    all.push(...allQuestions[key]);
+                }
             });
             return all;
         }
@@ -1106,7 +1266,15 @@ document.addEventListener("DOMContentLoaded", function() {
         }
 
         const question = selectedQuestions[currentQuestionIndex];
-        questionElement.textContent = question.question;
+        const q = question.question;
+        if (q.indexOf("\n\n") !== -1) {
+            const parts = q.split("\n\n");
+            const prompt = parts[0].trim();
+            const term = parts.slice(1).join("\n\n").trim();
+            questionElement.innerHTML = `<span class="question-prompt">${escapeHtml(prompt)}</span><div class="question-term">${escapeHtml(term)}</div>`;
+        } else {
+            questionElement.innerHTML = escapeHtml(q);
+        }
         optionsContainer.innerHTML = "";
 
         question.options.forEach((option, index) => {
@@ -1213,7 +1381,10 @@ document.addEventListener("DOMContentLoaded", function() {
             "attaques-bras": { title: "Quiz Attaques Bras", desc: "Choisissez le nombre de questions sur les techniques d'attaque avec les bras." },
             "positions": { title: "Quiz Positions", desc: "Choisissez le nombre de questions sur les positions de base du Taekwondo." },
             "poomse": { title: "Quiz Poomse", desc: "Choisissez le nombre de questions sur les poomse (formes)." },
-            "general": { title: "Quiz Général Taekwondo", desc: "Choisissez le nombre de questions sur l'histoire, les valeurs et les connaissances générales du Taekwondo." }
+            "general": { title: "Quiz Général Taekwondo", desc: "Choisissez le nombre de questions sur l'histoire, les valeurs et les connaissances générales du Taekwondo." },
+            "kibon-membres-superieurs": { title: "Kibon – Membres supérieurs", desc: "8 questions sur les enchaînements membres supérieurs (DAN 2026)." },
+            "kibon-membres-inferieurs": { title: "Kibon – Membres inférieurs", desc: "8 questions sur les enchaînements membres inférieurs (DAN 2026)." },
+            "kibon-membres-mixte": { title: "Kibon – Membres supérieurs + inférieurs", desc: "8 questions sur les enchaînements mixtes (DAN 2026)." }
         };
 
         const info = quizInfo[type] || quizInfo["all"];
@@ -1280,7 +1451,12 @@ document.addEventListener("DOMContentLoaded", function() {
     // Fonction pour retourner à la sélection
     function backToSelection() {
         startScreen.style.display = "none";
-        quizSelectScreen.style.display = "block";
+        if (kibonCategoryScreen && (currentQuizType === "kibon-membres-superieurs" || currentQuizType === "kibon-membres-inferieurs" || currentQuizType === "kibon-membres-mixte")) {
+            kibonCategoryScreen.style.display = "block";
+        } else {
+            quizSelectScreen.style.display = "block";
+            if (kibonCategoryScreen) kibonCategoryScreen.style.display = "none";
+        }
     }
 
     // Fonction pour redémarrer le quiz
@@ -1293,6 +1469,28 @@ document.addEventListener("DOMContentLoaded", function() {
     quizTypeButtons.forEach(button => {
         button.addEventListener("click", function() {
             const quizType = this.getAttribute("data-quiz");
+            if (quizType === "kibon-dan2026") {
+                quizSelectScreen.style.display = "none";
+                if (kibonCategoryScreen) kibonCategoryScreen.style.display = "block";
+            } else {
+                showStartScreen(quizType);
+            }
+        });
+    });
+
+    // Retour depuis l'écran Kibon vers la sélection
+    if (kibonBackBtn) {
+        kibonBackBtn.addEventListener("click", function() {
+            if (kibonCategoryScreen) kibonCategoryScreen.style.display = "none";
+            quizSelectScreen.style.display = "block";
+        });
+    }
+
+    // Clic sur une catégorie Kibon → écran de démarrage du quiz
+    document.querySelectorAll(".kibon-category-btn").forEach(button => {
+        button.addEventListener("click", function() {
+            const quizType = this.getAttribute("data-quiz");
+            if (kibonCategoryScreen) kibonCategoryScreen.style.display = "none";
             showStartScreen(quizType);
         });
     });
