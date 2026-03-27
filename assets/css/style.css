@@ -1382,15 +1382,31 @@ body.compet-page {
     box-sizing: border-box;
 }
 
+/* Mobile : quand la barre est masquée (page compétition), réduire le vide en haut */
+@media (max-width: 768px) {
+    body.compet-page:has(.header:not(.header-hidden)) .compet-main {
+        padding-top: calc(52px + env(safe-area-inset-top, 0px));
+        transition: padding-top 0.3s ease;
+    }
+
+    body.compet-page:has(.header.header-hidden) .compet-main {
+        padding-top: max(4px, env(safe-area-inset-top));
+        transition: padding-top 0.3s ease;
+    }
+}
+
 .compet-panel {
     max-width: 720px;
     margin: 0 auto;
     padding: 0 0.75rem 1rem;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .compet-hero {
     text-align: center;
     margin-bottom: 0.75rem;
+    width: 100%;
 }
 
 .compet-hero h1 {
@@ -1404,9 +1420,12 @@ body.compet-page {
     background: #1a1a1a;
     border-radius: 10px;
     padding: 0;
-    margin-bottom: 1rem;
+    margin: 0 auto 1rem;
     border: 1px solid #333;
-    overflow: visible;
+    overflow: hidden;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
 }
 
 .compet-step-padded {
@@ -1434,24 +1453,36 @@ body.compet-page {
     font-size: 1.05rem;
 }
 
-/* Étape 1 : déductions aux bords (pouces), note au centre — pleine largeur écran */
-.compet-tech-landscape {
+/* Étape 1 : grille 3 colonnes — gauche | centre | droite, alignée et centrée */
+#compet-step-1 {
     display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    gap: 0.35rem;
-    width: 100vw;
-    max-width: 100%;
-    margin-left: calc(50% - 50vw);
-    margin-right: calc(50% - 50vw);
-    position: relative;
-    padding-left: max(10px, env(safe-area-inset-left));
-    padding-right: max(10px, env(safe-area-inset-right));
-    padding-top: 0.75rem;
-    padding-bottom: 0.75rem;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: center;
+    min-height: 17rem;
+    padding: 1.5rem 1rem 1.25rem;
     box-sizing: border-box;
-    min-height: 10.5rem;
+}
+
+.compet-tech-landscape {
+    display: grid;
+    grid-template-columns: minmax(5.25rem, auto) minmax(0, 1fr) minmax(5.25rem, auto);
+    align-items: center;
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 0.5rem max(8px, env(safe-area-inset-left)) 0.5rem max(8px, env(safe-area-inset-right));
+    box-sizing: border-box;
+    column-gap: 0.5rem;
+    min-height: 10rem;
+}
+
+.compet-tech-landscape > .compet-deduct-btn:first-of-type {
+    justify-self: start;
+}
+
+.compet-tech-landscape > .compet-deduct-btn:last-of-type {
+    justify-self: end;
 }
 
 .compet-deduct-btn {
@@ -1472,10 +1503,6 @@ body.compet-page {
     flex-shrink: 0;
 }
 
-.compet-deduct-btn--thumb {
-    align-self: center;
-}
-
 .compet-deduct-btn:hover {
     background: #383838;
     border-color: #777;
@@ -1491,34 +1518,38 @@ body.compet-page {
 }
 
 .compet-tech-block {
-    flex: 1;
-    min-width: 0;
-    text-align: center;
-    margin: 0;
+    grid-column: 2;
+    justify-self: center;
     display: flex;
-    flex-wrap: wrap;
-    align-items: baseline;
+    flex-direction: column;
+    align-items: center;
     justify-content: center;
-    gap: 0;
+    text-align: center;
+    min-width: 0;
+    width: max-content;
+    max-width: min(100%, 11rem);
 }
 
 .compet-next-step1 {
     display: block;
-    margin: 0.75rem auto 1rem;
+    margin: 1.25rem auto 0;
+    width: fit-content;
+    max-width: 100%;
 }
 
 .compet-tech-big {
     font-size: 3.75rem;
     font-weight: 800;
     font-variant-numeric: tabular-nums;
-    line-height: 1.1;
+    line-height: 1;
     letter-spacing: 0.02em;
 }
 
 .compet-tech-suffix {
-    font-size: 1.25rem;
+    font-size: 1.05rem;
     color: #888;
-    margin-left: 0.15rem;
+    margin-top: 0.2rem;
+    line-height: 1.2;
 }
 
 .compet-preview {

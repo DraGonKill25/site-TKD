@@ -31,19 +31,23 @@ document.addEventListener("DOMContentLoaded", function() {
         let lastScrollTop = 0;
         let ticking = false;
 
+        function scrollHideThreshold() {
+            // Page compétition : seuil bas car la page est souvent courte (peu de scroll)
+            return document.body.classList.contains("compet-page") ? 28 : 100;
+        }
+
         function handleScroll() {
             if (window.innerWidth > 768) return; // Seulement sur mobile
-            
+
             const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-            
-            if (scrollTop > lastScrollTop && scrollTop > 100) {
-                // Scroll vers le bas - cacher la navbar
+            const threshold = scrollHideThreshold();
+
+            if (scrollTop > lastScrollTop && scrollTop > threshold) {
                 header.classList.add("header-hidden");
             } else {
-                // Scroll vers le haut - montrer la navbar
                 header.classList.remove("header-hidden");
             }
-            
+
             lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
             ticking = false;
         }
@@ -55,10 +59,21 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         }, { passive: true });
 
-        // Reset sur resize
+        function applyCompetMobileHeaderDefault() {
+            if (window.innerWidth > 768) return;
+            if (!document.body.classList.contains("compet-page")) return;
+            header.classList.add("header-hidden");
+        }
+
+        requestAnimationFrame(function () {
+            applyCompetMobileHeaderDefault();
+        });
+
         window.addEventListener("resize", function() {
             if (window.innerWidth > 768) {
                 header.classList.remove("header-hidden");
+            } else if (document.body.classList.contains("compet-page")) {
+                header.classList.add("header-hidden");
             }
         });
     }
