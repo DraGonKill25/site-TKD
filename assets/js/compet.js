@@ -3,6 +3,12 @@
 
     var STORAGE_KEY = 'tkd_poomsae_compet_history';
 
+    var PERF_CONFIG = [
+        { key: 'speed', label: 'Vitesse & puissance' },
+        { key: 'rhythm', label: 'Rythme & tempo' },
+        { key: 'energy', label: 'Expression d\'énergie' }
+    ];
+
     function round2(n) {
         return Math.round(n * 100) / 100;
     }
@@ -35,18 +41,83 @@
         updateTechPreview();
     }
 
-    function sliderValue(id) {
-        var el = document.getElementById(id);
-        if (!el) return 0;
-        return round2(parseInt(el.value, 10) / 10);
+    function perfValue(key) {
+        var grid = document.querySelector('.compet-value-grid[data-perf-key="' + key + '"]');
+        if (!grid) return 0;
+        var sel = grid.querySelector('.compet-value-btn--selected');
+        if (!sel) return 0;
+        return round2(parseInt(sel.getAttribute('data-tenths'), 10) / 10);
     }
 
     function sumPerformance() {
-        return round2(sliderValue('perf-speed') + sliderValue('perf-rhythm') + sliderValue('perf-energy'));
+        return round2(perfValue('speed') + perfValue('rhythm') + perfValue('energy'));
     }
 
     function computedTotal() {
         return clampScore(technicalScore() + sumPerformance());
+    }
+
+    function buildPerfPickers() {
+        var root = document.getElementById('perf-pickers-root');
+        if (!root) return;
+
+        root.innerHTML = '';
+        PERF_CONFIG.forEach(function (cfg) {
+            var section = document.createElement('div');
+            section.className = 'compet-criterion';
+
+            var h = document.createElement('div');
+            h.className = 'compet-criterion-label';
+            h.textContent = cfg.label;
+
+            var grid = document.createElement('div');
+            grid.className = 'compet-value-grid';
+            grid.setAttribute('role', 'radiogroup');
+            grid.setAttribute('aria-label', cfg.label + ' sur 2');
+            grid.setAttribute('data-perf-key', cfg.key);
+
+            var i;
+            for (i = 0; i <= 20; i += 1) {
+                var btn = document.createElement('button');
+                btn.type = 'button';
+                btn.className = 'compet-value-btn';
+                btn.setAttribute('data-tenths', String(i));
+                btn.textContent = formatFr(round2(i / 10));
+                if (i === 20) {
+                    btn.classList.add('compet-value-btn--selected');
+                }
+                grid.appendChild(btn);
+            }
+
+            section.appendChild(h);
+            section.appendChild(grid);
+            root.appendChild(section);
+        });
+
+        root.addEventListener('click', function (e) {
+            var t = e.target.closest('.compet-value-btn');
+            if (!t || !root.contains(t)) return;
+            var grid = t.closest('.compet-value-grid');
+            if (!grid) return;
+            grid.querySelectorAll('.compet-value-btn').forEach(function (b) {
+                b.classList.remove('compet-value-btn--selected');
+            });
+            t.classList.add('compet-value-btn--selected');
+            updatePerfSum();
+        });
+    }
+
+    function resetPerfPickers() {
+        PERF_CONFIG.forEach(function (cfg) {
+            var grid = document.querySelector('.compet-value-grid[data-perf-key="' + cfg.key + '"]');
+            if (!grid) return;
+            grid.querySelectorAll('.compet-value-btn').forEach(function (b) {
+                b.classList.remove('compet-value-btn--selected');
+            });
+            var last = grid.querySelector('.compet-value-btn[data-tenths="20"]');
+            if (last) last.classList.add('compet-value-btn--selected');
+        });
+        updatePerfSum();
     }
 
     function getSteps() {
@@ -67,16 +138,7 @@
         if (el) el.textContent = formatFr(technicalScore());
     }
 
-    function updateSliderOutputs() {
-        ['perf-speed', 'perf-rhythm', 'perf-energy'].forEach(function (id) {
-            var input = document.getElementById(id);
-            var outId = id + '-out';
-            var out = document.getElementById(outId);
-            if (!input || !out) return;
-            var v = round2(parseInt(input.value, 10) / 10);
-            out.textContent = formatFr(v);
-            input.setAttribute('aria-valuenow', String(v));
-        });
+    function updatePerfSum() {
         var sumEl = document.getElementById('compet-perf-sum');
         if (sumEl) sumEl.textContent = formatFr(sumPerformance());
     }
@@ -151,7 +213,7 @@
     }
 
     function onValidate2() {
-        updateSliderOutputs();
+        updatePerfSum();
         state.finalScore = computedTotal();
         updateFinalDisplay();
         showStep(3);
@@ -199,9 +261,9 @@
             deductionTotal: state.techDeductionSum,
             technical: technicalScore(),
             performance: {
-                speed: sliderValue('perf-speed'),
-                rhythm: sliderValue('perf-rhythm'),
-                energy: sliderValue('perf-energy')
+                speed: perfValue('speed'),
+                rhythm: perfValue('rhythm'),
+                energy: perfValue('energy')
             }
         };
         var entries = loadHistory();
@@ -225,12 +287,8 @@
 
     function onNewSession() {
         state.techDeductionSum = 0;
-        ['perf-speed', 'perf-rhythm', 'perf-energy'].forEach(function (id) {
-            var el = document.getElementById(id);
-            if (el) el.value = '20';
-        });
+        resetPerfPickers();
         updateTechPreview();
-        updateSliderOutputs();
         state.finalScore = computedTotal();
         updateFinalDisplay();
         showStep(1);
@@ -241,11 +299,6 @@
         var d03 = document.getElementById('deduct-03');
         if (d01) d01.addEventListener('click', function () { applyDeduction(0.1); });
         if (d03) d03.addEventListener('click', function () { applyDeduction(0.3); });
-
-        ['perf-speed', 'perf-rhythm', 'perf-energy'].forEach(function (id) {
-            var el = document.getElementById(id);
-            if (el) el.addEventListener('input', updateSliderOutputs);
-        });
 
         var v1 = document.getElementById('compet-validate-1');
         if (v1) v1.addEventListener('click', onValidate1);
@@ -307,8 +360,9 @@
     }
 
     document.addEventListener('DOMContentLoaded', function () {
+        buildPerfPickers();
         updateTechPreview();
-        updateSliderOutputs();
+        updatePerfSum();
         state.finalScore = computedTotal();
         updateFinalDisplay();
         bind();
