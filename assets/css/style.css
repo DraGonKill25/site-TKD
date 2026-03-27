@@ -1382,16 +1382,88 @@ body.compet-page {
     box-sizing: border-box;
 }
 
-/* Mobile : quand la barre est masquée (page compétition), réduire le vide en haut */
-@media (max-width: 768px) {
+/* Mobile + téléphone paysage (largeur > 768px) : padding du contenu selon barre visible / masquée */
+@media (max-width: 768px), (orientation: landscape) and (max-height: 560px) {
     body.compet-page:has(.header:not(.header-hidden)) .compet-main {
         padding-top: calc(52px + env(safe-area-inset-top, 0px));
         transition: padding-top 0.3s ease;
     }
 
     body.compet-page:has(.header.header-hidden) .compet-main {
-        padding-top: max(4px, env(safe-area-inset-top));
+        padding-top: max(2px, env(safe-area-inset-top));
         transition: padding-top 0.3s ease;
+    }
+}
+
+/* Paysage : barre plus basse si visible ; moins de marge autour du titre et de l’historique */
+@media (orientation: landscape) and (max-height: 560px) {
+    body.compet-page .header:not(.header-hidden) {
+        padding: 6px 12px;
+        min-height: 0;
+    }
+
+    body.compet-page .header:not(.header-hidden) .logo {
+        font-size: 14px;
+        max-width: calc(100vw - 80px);
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    body.compet-page .compet-hero {
+        margin-bottom: 0.35rem;
+    }
+
+    body.compet-page .compet-hero h1 {
+        font-size: 1.1rem;
+    }
+
+    body.compet-page .compet-history-section {
+        padding: 0.65rem 0.75rem 1rem;
+        min-height: 0;
+    }
+
+    body.compet-page .compet-history-header {
+        margin-bottom: 0.5rem;
+    }
+
+    body.compet-page .compet-history-header h2 {
+        font-size: 1rem;
+    }
+
+    body.compet-page #compet-step-1 {
+        min-height: 0;
+        padding: 0.65rem 0.75rem 0.75rem;
+    }
+
+    body.compet-page .compet-tech-landscape {
+        min-height: 7rem;
+        padding-top: 0.25rem;
+        padding-bottom: 0.25rem;
+    }
+
+    body.compet-page .compet-tech-big {
+        font-size: 2.75rem;
+    }
+
+    body.compet-page .compet-deduct-btn {
+        width: 4.75rem;
+        height: 4.75rem;
+        font-size: 0.9rem;
+    }
+
+    body.compet-page .compet-next-step1 {
+        margin-top: 0.5rem;
+    }
+
+    body.compet-page footer {
+        padding: 6px 8px;
+        font-size: 11px;
+        margin-top: 0;
+    }
+
+    body.compet-page footer p {
+        margin: 0;
     }
 }
 

@@ -27,17 +27,25 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     // Navbar rétractable sur mobile (cache/montre au scroll)
+    // Inclut téléphone en paysage : largeur > 768 mais hauteur faible → sinon la barre ne se masquait jamais
     if (header) {
         let lastScrollTop = 0;
         let ticking = false;
 
+        function isCompactHeaderViewport() {
+            const w = window.innerWidth;
+            const h = window.innerHeight;
+            if (w <= 768) return true;
+            if (h <= 560 && w < 1300) return true;
+            return false;
+        }
+
         function scrollHideThreshold() {
-            // Page compétition : seuil bas car la page est souvent courte (peu de scroll)
             return document.body.classList.contains("compet-page") ? 28 : 100;
         }
 
         function handleScroll() {
-            if (window.innerWidth > 768) return; // Seulement sur mobile
+            if (!isCompactHeaderViewport()) return;
 
             const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
             const threshold = scrollHideThreshold();
@@ -60,7 +68,7 @@ document.addEventListener("DOMContentLoaded", function() {
         }, { passive: true });
 
         function applyCompetMobileHeaderDefault() {
-            if (window.innerWidth > 768) return;
+            if (!isCompactHeaderViewport()) return;
             if (!document.body.classList.contains("compet-page")) return;
             header.classList.add("header-hidden");
         }
@@ -69,12 +77,20 @@ document.addEventListener("DOMContentLoaded", function() {
             applyCompetMobileHeaderDefault();
         });
 
-        window.addEventListener("resize", function() {
-            if (window.innerWidth > 768) {
+        function syncHeaderForViewport() {
+            if (!isCompactHeaderViewport()) {
                 header.classList.remove("header-hidden");
             } else if (document.body.classList.contains("compet-page")) {
                 header.classList.add("header-hidden");
             }
+        }
+
+        window.addEventListener("resize", syncHeaderForViewport);
+
+        window.addEventListener("orientationchange", function () {
+            setTimeout(function () {
+                syncHeaderForViewport();
+            }, 150);
         });
     }
 
