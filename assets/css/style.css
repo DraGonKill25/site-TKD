@@ -1357,6 +1357,451 @@ footer {
     }
 }
 
+/* --- PAGE COMPÉTITION POOMSAE (compet.html) --- */
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+.compet-main.container {
+    padding: 100px 20px 40px;
+    max-width: 720px;
+}
+
+.compet-hero {
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.compet-hero h1 {
+    font-size: 1.35rem;
+    margin: 0;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+}
+
+.compet-wizard {
+    background: #1a1a1a;
+    border-radius: 10px;
+    padding: 1.5rem 1.25rem;
+    margin-bottom: 2rem;
+    border: 1px solid #333;
+}
+
+.compet-step[hidden] {
+    display: none !important;
+}
+
+.compet-step-title {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+    color: #fff;
+}
+
+.compet-step-desc {
+    color: #aaa;
+    font-size: 0.95rem;
+    margin-bottom: 1.25rem;
+}
+
+.compet-step-title--compact {
+    margin-bottom: 1rem;
+    font-size: 1.05rem;
+}
+
+.compet-deduction-row {
+    display: flex;
+    justify-content: center;
+    gap: 1.25rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.25rem;
+}
+
+.compet-deduct-btn {
+    width: 5.5rem;
+    height: 5.5rem;
+    padding: 0;
+    border-radius: 50%;
+    border: 2px solid #555;
+    background: #2a2a2a;
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.15s, border-color 0.15s, transform 0.1s;
+}
+
+.compet-deduct-btn:hover {
+    background: #383838;
+    border-color: #777;
+}
+
+.compet-deduct-btn:active {
+    transform: scale(0.96);
+}
+
+.compet-deduct-btn:focus-visible {
+    outline: 2px solid #fff;
+    outline-offset: 3px;
+}
+
+.compet-tech-block {
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.compet-tech-big {
+    font-size: 3.75rem;
+    font-weight: 800;
+    font-variant-numeric: tabular-nums;
+    line-height: 1.1;
+    letter-spacing: 0.02em;
+}
+
+.compet-tech-suffix {
+    font-size: 1.25rem;
+    color: #888;
+    margin-left: 0.15rem;
+}
+
+.compet-preview {
+    margin: 1rem 0;
+    font-size: 1rem;
+    color: #ccc;
+}
+
+.compet-preview--inline {
+    text-align: center;
+    margin-top: 0.5rem;
+    font-size: 1.1rem;
+}
+
+.btn-compact {
+    padding: 8px 12px;
+    font-size: 14px;
+}
+
+.compet-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 2000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+}
+
+.compet-modal[hidden] {
+    display: none !important;
+}
+
+.compet-modal-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.65);
+}
+
+.compet-modal-box {
+    position: relative;
+    width: 100%;
+    max-width: 400px;
+    padding: 1.25rem 1.5rem;
+    background: #1e1e1e;
+    border: 1px solid #444;
+    border-radius: 10px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+}
+
+.compet-modal-title {
+    font-size: 1.15rem;
+    margin: 0 0 1rem;
+    color: #fff;
+}
+
+.compet-modal-label {
+    display: block;
+    font-size: 0.9rem;
+    color: #bbb;
+    margin-bottom: 0.35rem;
+}
+
+.compet-modal-input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0.65rem 0.75rem;
+    margin-bottom: 1.25rem;
+    font-size: 1rem;
+    border: 1px solid #555;
+    border-radius: 6px;
+    background: #111;
+    color: #fff;
+}
+
+.compet-modal-input:focus {
+    outline: none;
+    border-color: #888;
+}
+
+.compet-modal-actions {
+    display: flex;
+    gap: 0.75rem;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+}
+
+.compet-history-label {
+    display: block;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 0.35rem;
+    word-break: break-word;
+}
+
+.compet-criteria {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.compet-criterion label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 0.35rem;
+}
+
+.compet-max {
+    font-weight: normal;
+    color: #888;
+    font-size: 0.9rem;
+}
+
+.compet-slider-row {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.compet-slider-row input[type="range"] {
+    flex: 1;
+    min-width: 0;
+    height: 8px;
+    accent-color: #ccc;
+}
+
+.compet-slider-value {
+    min-width: 3rem;
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+    font-weight: bold;
+}
+
+.compet-step-actions {
+    display: flex;
+    gap: 0.75rem;
+    margin-top: 1.25rem;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.compet-step-actions--wrap {
+    justify-content: flex-start;
+}
+
+.compet-final-display {
+    text-align: center;
+    padding: 1.5rem;
+    background: #222;
+    border-radius: 10px;
+    margin-top: 0.5rem;
+    margin-bottom: 1.25rem;
+}
+
+.compet-final-label {
+    display: block;
+    font-size: 0.95rem;
+    color: #aaa;
+    margin-bottom: 0.25rem;
+}
+
+.compet-final-number {
+    font-size: 3rem;
+    font-weight: bold;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.02em;
+}
+
+.compet-final-max {
+    display: block;
+    font-size: 1rem;
+    color: #888;
+    margin-top: 0.25rem;
+}
+
+.compet-adjust {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+}
+
+.compet-adjust-row {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+    min-width: 4.5rem;
+}
+
+.compet-adjust-label {
+    font-size: 0.85rem;
+    color: #aaa;
+    margin-bottom: 0.15rem;
+}
+
+.compet-arrow {
+    width: 2.5rem;
+    height: 2rem;
+    font-size: 0.85rem;
+    line-height: 1;
+    border: 1px solid #555;
+    background: #333;
+    color: #fff;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.compet-arrow:hover {
+    background: #444;
+}
+
+.compet-arrow:focus-visible {
+    outline: 2px solid #fff;
+    outline-offset: 2px;
+}
+
+.btn-secondary {
+    background: #333;
+    color: #fff;
+    border: 1px solid #555;
+}
+
+.btn-secondary:hover {
+    background: #444;
+}
+
+.btn-danger {
+    background: #5a2a2a;
+    color: #fff;
+    border: 1px solid #7a3a3a;
+}
+
+.btn-danger:hover {
+    background: #6a3333;
+}
+
+.compet-history-section {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #333;
+}
+
+.compet-history-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+}
+
+.compet-history-header h2 {
+    font-size: 1.2rem;
+    margin: 0;
+}
+
+.compet-history-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.compet-history-empty {
+    color: #888;
+    font-style: italic;
+    padding: 0.5rem 0;
+}
+
+.compet-history-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    background: #1a1a1a;
+    border: 1px solid #333;
+    margin-bottom: 0.5rem;
+}
+
+.compet-history-date {
+    font-size: 0.85rem;
+    color: #888;
+}
+
+.compet-history-score {
+    font-size: 1.25rem;
+    font-weight: bold;
+    font-variant-numeric: tabular-nums;
+}
+
+.compet-history-detail {
+    font-size: 0.85rem;
+    color: #aaa;
+    line-height: 1.4;
+}
+
+@media (max-width: 480px) {
+    .compet-main.container {
+        padding: 90px 0.75rem 32px;
+    }
+
+    .compet-tech-big {
+        font-size: 3rem;
+    }
+
+    .compet-deduct-btn {
+        width: 5rem;
+        height: 5rem;
+        font-size: 0.95rem;
+    }
+
+    .compet-final-number {
+        font-size: 2.25rem;
+    }
+
+    .compet-adjust {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .compet-adjust-row {
+        flex-direction: row;
+        justify-content: center;
+    }
+}
+
 /* --- ANIMATIONS --- */
 @keyframes fadeIn {
     from { opacity: 0; }

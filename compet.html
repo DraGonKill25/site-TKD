@@ -1,0 +1,146 @@
+<!DOCTYPE HTML>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Notation Poomsae (compétition) - SP Training TaeKwonDo</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <script defer src="assets/js/script.js"></script>
+    <script defer src="assets/js/compet.js"></script>
+</head>
+<body class="subpage compet-page">
+
+    <header class="header">
+        <div class="logo">SP Training TaeKwonDo</div>
+        <button class="menu-toggle" aria-label="Menu">☰</button>
+        <nav>
+            <ul>
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="bases.html">Les Bases</a></li>
+                <li><a href="poomse.html">Poomse</a></li>
+                <li><a href="vocabulaire.html">Vocabulaire</a></li>
+                <li><a href="compet.html">Compétition</a></li>
+                <li><a href="quiz.html">Quiz</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div id="main" class="container compet-main">
+        <section class="wrapper style1">
+            <div class="inner">
+                <header class="section-title compet-hero">
+                    <h1>Poomsae</h1>
+                </header>
+
+                <div class="compet-wizard" id="compet-wizard">
+                    <!-- Étape 1 : déduction technique -->
+                    <div class="compet-step compet-step--active" data-step="1" id="compet-step-1">
+                        <div class="compet-deduction-row" role="group" aria-label="Déductions technique">
+                            <button type="button" class="compet-deduct-btn" id="deduct-01" aria-label="Retirer 0,1 point">−0,1</button>
+                            <button type="button" class="compet-deduct-btn" id="deduct-03" aria-label="Retirer 0,3 point">−0,3</button>
+                        </div>
+                        <div class="compet-tech-block">
+                            <span class="compet-tech-big" id="compet-tech-preview">4,00</span>
+                            <span class="compet-tech-suffix">/ 4</span>
+                        </div>
+                        <button type="button" class="btn compet-next" id="compet-validate-1">Suivant</button>
+                    </div>
+
+                    <!-- Étape 2 : présentation -->
+                    <div class="compet-step" data-step="2" id="compet-step-2" hidden>
+                        <h2 class="compet-step-title compet-step-title--compact">Présentation / 6</h2>
+                        <div class="compet-criteria">
+                            <div class="compet-criterion">
+                                <label for="perf-speed">Vitesse &amp; puissance <span class="compet-max">/ 2,0</span></label>
+                                <div class="compet-slider-row">
+                                    <input type="range" id="perf-speed" min="0" max="20" step="1" value="20" aria-valuemin="0" aria-valuemax="2" aria-valuenow="2">
+                                    <output class="compet-slider-value" for="perf-speed" id="perf-speed-out">2,0</output>
+                                </div>
+                            </div>
+                            <div class="compet-criterion">
+                                <label for="perf-rhythm">Rythme &amp; tempo <span class="compet-max">/ 2,0</span></label>
+                                <div class="compet-slider-row">
+                                    <input type="range" id="perf-rhythm" min="0" max="20" step="1" value="20" aria-valuemin="0" aria-valuemax="2" aria-valuenow="2">
+                                    <output class="compet-slider-value" for="perf-rhythm" id="perf-rhythm-out">2,0</output>
+                                </div>
+                            </div>
+                            <div class="compet-criterion">
+                                <label for="perf-energy">Expression d'énergie <span class="compet-max">/ 2,0</span></label>
+                                <div class="compet-slider-row">
+                                    <input type="range" id="perf-energy" min="0" max="20" step="1" value="20" aria-valuemin="0" aria-valuemax="2" aria-valuenow="2">
+                                    <output class="compet-slider-value" for="perf-energy" id="perf-energy-out">2,0</output>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="compet-preview compet-preview--inline"><strong id="compet-perf-sum">6,00</strong> / 6</p>
+                        <div class="compet-step-actions">
+                            <button type="button" class="btn btn-secondary compet-back" id="compet-back-2">Retour</button>
+                            <button type="button" class="btn compet-next" id="compet-validate-2">Suivant</button>
+                        </div>
+                    </div>
+
+                    <!-- Étape 3 : note finale + ajustement -->
+                    <div class="compet-step" data-step="3" id="compet-step-3" hidden>
+                        <h2 class="visually-hidden">Note finale</h2>
+                        <div class="compet-final-display">
+                            <span class="compet-final-label">Total</span>
+                            <span class="compet-final-number" id="compet-final-display">10,00</span>
+                            <span class="compet-final-max">/ 10</span>
+                        </div>
+                        <div class="compet-adjust" aria-label="Ajustement de la note">
+                            <div class="compet-adjust-row">
+                                <span class="compet-adjust-label">1</span>
+                                <button type="button" class="compet-arrow" id="adj-1-up" aria-label="Augmenter la partie entière de 1">▲</button>
+                                <button type="button" class="compet-arrow" id="adj-1-down" aria-label="Diminuer la partie entière de 1">▼</button>
+                            </div>
+                            <div class="compet-adjust-row">
+                                <span class="compet-adjust-label">0,1</span>
+                                <button type="button" class="compet-arrow" id="adj-01-up" aria-label="Augmenter les dixièmes de 0,1">▲</button>
+                                <button type="button" class="compet-arrow" id="adj-01-down" aria-label="Diminuer les dixièmes de 0,1">▼</button>
+                            </div>
+                            <div class="compet-adjust-row">
+                                <span class="compet-adjust-label">0,01</span>
+                                <button type="button" class="compet-arrow" id="adj-001-up" aria-label="Augmenter les centièmes de 0,01">▲</button>
+                                <button type="button" class="compet-arrow" id="adj-001-down" aria-label="Diminuer les centièmes de 0,01">▼</button>
+                            </div>
+                        </div>
+                        <div class="compet-step-actions compet-step-actions--wrap">
+                            <button type="button" class="btn btn-secondary compet-back" id="compet-back-3">Retour</button>
+                            <button type="button" class="btn compet-save" id="compet-save-history">Enregistrer</button>
+                            <button type="button" class="btn btn-secondary" id="compet-new-session">Recommencer</button>
+                        </div>
+                    </div>
+                </div>
+
+                <section class="compet-history-section" aria-labelledby="history-heading">
+                    <div class="compet-history-header">
+                        <h2 id="history-heading">Historique</h2>
+                        <button type="button" class="btn btn-danger btn-compact" id="compet-clear-history">Tout effacer</button>
+                    </div>
+                    <ul class="compet-history-list" id="compet-history-list">
+                        <li class="compet-history-empty">Aucune note enregistrée pour le moment.</li>
+                    </ul>
+                </section>
+            </div>
+        </section>
+    </div>
+
+    <div class="compet-modal" id="compet-save-modal" hidden aria-hidden="true">
+        <div class="compet-modal-backdrop" id="compet-save-modal-backdrop" tabindex="-1"></div>
+        <div class="compet-modal-box" role="dialog" aria-modal="true" aria-labelledby="compet-save-modal-title">
+            <h3 id="compet-save-modal-title" class="compet-modal-title">Enregistrer la note</h3>
+            <label for="compet-save-label" class="compet-modal-label">Nom, n° de passage ou repère</label>
+            <input type="text" id="compet-save-label" class="compet-modal-input" maxlength="120" placeholder="Ex. : 12 — Dupont" autocomplete="off">
+            <div class="compet-modal-actions">
+                <button type="button" class="btn btn-secondary" id="compet-save-cancel">Annuler</button>
+                <button type="button" class="btn" id="compet-save-confirm">Enregistrer</button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 DraGonKill25 - Tous droits réservés.</p>
+    </footer>
+
+</body>
+</html>
