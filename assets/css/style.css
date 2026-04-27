@@ -381,6 +381,64 @@ a.feature:hover .feature-link {
     border-radius: 5px;
 }
 
+/* --- Page Poomse : sélecteur compact + plus de place pour le PDF --- */
+.inner--poomse {
+    gap: 20px;
+    align-items: flex-start;
+}
+
+.inner--poomse .document-grid--poomse {
+    width: 200px;
+    flex: 0 0 200px;
+    max-width: 100%;
+    gap: 6px;
+}
+
+.inner--poomse .pdf-container {
+    width: auto;
+    flex: 1;
+    min-width: 0;
+}
+
+.inner--poomse .document-grid--poomse .document-card {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 8px;
+    padding: 8px 10px;
+    text-align: left;
+    border-radius: 6px;
+}
+
+.inner--poomse .document-grid--poomse .document-card:hover {
+    transform: translateY(-2px);
+}
+
+.inner--poomse .document-grid--poomse .document-icon {
+    font-size: 26px;
+    margin: 0;
+    line-height: 1;
+    flex-shrink: 0;
+}
+
+.inner--poomse .document-grid--poomse .document-card h3 {
+    margin: 0;
+    font-size: 13px;
+    font-weight: 600;
+    flex: 1;
+    min-width: 0;
+    line-height: 1.25;
+}
+
+.inner--poomse .document-grid--poomse .document-card .btn {
+    margin: 0;
+    padding: 4px 8px;
+    font-size: 11px;
+    flex-shrink: 0;
+    border-radius: 4px;
+}
+
 /* --- FOOTER --- */
 footer {
     background: #222;
@@ -400,6 +458,11 @@ footer {
 
     .document-grid {
         width: 35%;
+    }
+
+    .inner--poomse .document-grid--poomse {
+        width: 190px;
+        flex: 0 0 190px;
     }
 
     .header, #header {
@@ -423,6 +486,11 @@ footer {
 
     .document-grid {
         width: 33%;
+    }
+
+    .inner--poomse .document-grid--poomse {
+        width: 180px;
+        flex: 0 0 180px;
     }
 }
 
@@ -606,6 +674,36 @@ footer {
         margin-bottom: 10px;
     }
 
+    .inner--poomse .document-grid--poomse {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 8px;
+        width: 100%;
+        flex: none;
+        max-width: none;
+    }
+
+    .inner--poomse .document-grid--poomse .document-card {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding: 10px 8px;
+        gap: 4px;
+    }
+
+    .inner--poomse .document-grid--poomse .document-icon {
+        font-size: 32px;
+    }
+
+    .inner--poomse .document-grid--poomse .document-card h3 {
+        font-size: 13px;
+    }
+
+    .inner--poomse .document-grid--poomse .document-card .btn {
+        font-size: 11px;
+        padding: 5px 8px;
+    }
+
     .document-card {
         width: 100%;
         padding: 15px;
@@ -733,6 +831,23 @@ footer {
 
     .document-card {
         padding: 12px;
+    }
+
+    .inner--poomse .document-grid--poomse {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 6px;
+    }
+
+    .inner--poomse .document-grid--poomse .document-card {
+        padding: 8px 6px;
+    }
+
+    .inner--poomse .document-grid--poomse .document-icon {
+        font-size: 28px;
+    }
+
+    .inner--poomse .document-grid--poomse .document-card h3 {
+        font-size: 12px;
     }
 
     .document-icon {
