@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", function() {
+    const annalesModuleB = typeof ANNALES_1ER_DAN_MODULE_B !== "undefined" ? ANNALES_1ER_DAN_MODULE_B : [];
     // Base de données de questions sur le Taekwondo organisées par catégorie
     const allQuestions = {
         vocabulaire: [
@@ -1194,13 +1195,16 @@ document.addEventListener("DOMContentLoaded", function() {
                 correct: 2,
                 explanation: "Dwitt Koubi Seugui = position en L ; Keudeuro Are Maki = blocage en bas avec soutien ; Ap Tchagui = coup de pied avant ; Ap Koubi Seugui Momtong Doubonn Jileugui = grande position, double coup de poing niveau plexus."
             }
-        ]
+        ],
+        "annales-1er-dan-module-b": annalesModuleB
     };
 
     let currentQuestionIndex = 0;
     let score = 0;
     let selectedQuestions = [];
     let userAnswers = [];
+    /** Permutation des options par index de question : { order: number[], displayCorrect: number } */
+    let quizSessionOptionPerm = [];
     let currentQuizType = "all";
     let selectedQuestionCount = 10; // Nombre de questions par défaut
 
@@ -1232,13 +1236,36 @@ document.addEventListener("DOMContentLoaded", function() {
         return div.innerHTML;
     }
 
+    /** Mélange Fisher–Yates : retourne une permutation de [0, …, n - 1]. */
+    function shuffleIndices(n) {
+        const order = Array.from({ length: n }, (_, i) => i);
+        for (let i = order.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            const t = order[i];
+            order[i] = order[j];
+            order[j] = t;
+        }
+        return order;
+    }
+
+    /** Mélange Fisher–Yates d’un tableau en place (pour l’ordre des questions). */
+    function shuffleArrayInPlace(arr) {
+        for (let i = arr.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            const t = arr[i];
+            arr[i] = arr[j];
+            arr[j] = t;
+        }
+        return arr;
+    }
+
     // Fonction pour obtenir toutes les questions d'un type spécifique
     function getQuestionsByType(type) {
         if (type === "all") {
             // Mélanger toutes les questions (sauf les catégories Kibon DAN 2026)
             const all = [];
             Object.keys(allQuestions).forEach(key => {
-                if (key !== "kibon-membres-superieurs" && key !== "kibon-membres-inferieurs" && key !== "kibon-membres-mixte") {
+                if (key !== "kibon-membres-superieurs" && key !== "kibon-membres-inferieurs" && key !== "kibon-membres-mixte" && key !== "annales-1er-dan-module-b") {
                     all.push(...allQuestions[key]);
                 }
             });
@@ -1250,10 +1277,12 @@ document.addEventListener("DOMContentLoaded", function() {
     // Fonction pour sélectionner des questions aléatoires
     function selectRandomQuestions(type, count) {
         const availableQuestions = getQuestionsByType(type);
-        const shuffled = [...availableQuestions].sort(() => 0.5 - Math.random());
+        const pool = [...availableQuestions];
+        shuffleArrayInPlace(pool);
         const questionCount = (count === "max") ? availableQuestions.length : Math.min(count, availableQuestions.length);
-        selectedQuestions = shuffled.slice(0, questionCount);
+        selectedQuestions = pool.slice(0, questionCount);
         userAnswers = [];
+        quizSessionOptionPerm = new Array(selectedQuestions.length);
         currentQuestionIndex = 0;
         score = 0;
     }
@@ -1277,11 +1306,16 @@ document.addEventListener("DOMContentLoaded", function() {
         }
         optionsContainer.innerHTML = "";
 
-        question.options.forEach((option, index) => {
+        const nOpt = question.options.length;
+        const order = shuffleIndices(nOpt);
+        const displayCorrect = order.indexOf(question.correct);
+        quizSessionOptionPerm[currentQuestionIndex] = { order: order, displayCorrect: displayCorrect };
+
+        order.forEach((originalIndex, displayIndex) => {
             const button = document.createElement("button");
             button.className = "option-btn";
-            button.textContent = option;
-            button.addEventListener("click", () => selectAnswer(index));
+            button.textContent = question.options[originalIndex];
+            button.addEventListener("click", () => selectAnswer(displayIndex));
             optionsContainer.appendChild(button);
         });
 
@@ -1305,15 +1339,18 @@ document.addEventListener("DOMContentLoaded", function() {
         // Enregistrer la réponse
         userAnswers.push(selectedIndex);
 
+        const perm = quizSessionOptionPerm[currentQuestionIndex];
+        const displayCorrect = perm ? perm.displayCorrect : question.correct;
+
         // Vérifier la réponse
-        if (selectedIndex === question.correct) {
+        if (selectedIndex === displayCorrect) {
             score++;
             buttons[selectedIndex].classList.add("correct");
             feedbackElement.textContent = "✓ Correct ! " + question.explanation;
             feedbackElement.classList.add("correct-feedback");
         } else {
             buttons[selectedIndex].classList.add("incorrect");
-            buttons[question.correct].classList.add("correct");
+            buttons[displayCorrect].classList.add("correct");
             feedbackElement.textContent = "✗ Incorrect. " + question.explanation;
             feedbackElement.classList.add("incorrect-feedback");
         }
@@ -1358,12 +1395,17 @@ document.addEventListener("DOMContentLoaded", function() {
         selectedQuestions.forEach((question, index) => {
             const detail = document.createElement("div");
             detail.className = "result-detail";
-            const isCorrect = userAnswers[index] === question.correct;
+            const perm = quizSessionOptionPerm[index];
+            const displayCorrect = perm ? perm.displayCorrect : question.correct;
+            const isCorrect = userAnswers[index] === displayCorrect;
+            const order = perm ? perm.order : null;
+            const userOrig = order != null ? order[userAnswers[index]] : userAnswers[index];
+            const userLabel = question.options[userOrig] != null ? question.options[userOrig] : "";
             detail.innerHTML = `
-                <div class="result-question">${index + 1}. ${question.question}</div>
+                <div class="result-question">${index + 1}. ${escapeHtml(question.question)}</div>
                 <div class="result-answer ${isCorrect ? 'correct' : 'incorrect'}">
-                    ${isCorrect ? '✓' : '✗'} Votre réponse: ${question.options[userAnswers[index]]}
-                    ${!isCorrect ? `<br>✓ Bonne réponse: ${question.options[question.correct]}` : ''}
+                    ${isCorrect ? "✓" : "✗"} Votre réponse: ${escapeHtml(userLabel)}
+                    ${!isCorrect ? `<br>✓ Bonne réponse: ${escapeHtml(question.options[question.correct])}` : ""}
                 </div>
             `;
             resultsDetails.appendChild(detail);
@@ -1384,7 +1426,8 @@ document.addEventListener("DOMContentLoaded", function() {
             "general": { title: "Quiz Général Taekwondo", desc: "Choisissez le nombre de questions sur l'histoire, les valeurs et les connaissances générales du Taekwondo." },
             "kibon-membres-superieurs": { title: "Kibon – Membres supérieurs", desc: "8 questions sur les enchaînements membres supérieurs (DAN 2026)." },
             "kibon-membres-inferieurs": { title: "Kibon – Membres inférieurs", desc: "8 questions sur les enchaînements membres inférieurs (DAN 2026)." },
-            "kibon-membres-mixte": { title: "Kibon – Membres supérieurs + inférieurs", desc: "8 questions sur les enchaînements mixtes (DAN 2026)." }
+            "kibon-membres-mixte": { title: "Kibon – Membres supérieurs + inférieurs", desc: "8 questions sur les enchaînements mixtes (DAN 2026)." },
+            "annales-1er-dan-module-b": { title: "Années 2022–2024 — Module B (1er Dan)", desc: "QCM type examen ceinture noire : FFTDA, vie associative et arbitrage (68 questions, d’après les annales fédérales)." }
         };
 
         const info = quizInfo[type] || quizInfo["all"];
